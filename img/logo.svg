@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" role="img" aria-labelledby="t">
+  <!-- LOGOTIPO PROVISIONAL: solo el nombre de la marca en Lora (con Georgia de respaldo).
+       Reemplazar este archivo por el logotipo definitivo del equipo, con el mismo nombre (img/logo.svg). -->
+  <title id="t">Café Raíces de Colombia</title>
+  <text x="0" y="30" font-family="Lora, Georgia, 'Times New Roman', serif" font-size="27" font-weight="700" fill="#1B3626">Café Raíces</text>
+  <text x="1" y="54" font-family="Lora, Georgia, 'Times New Roman', serif" font-size="15" font-style="italic" fill="#7B8467" letter-spacing="2">DE COLOMBIA</text>
+</svg>

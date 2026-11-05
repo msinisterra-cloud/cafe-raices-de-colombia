@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda | Café Raíces de Colombia</title>
+  <meta name="description" content="Compra café 100 % arábica de Popayán: ½ libra $18.000, 1 libra $33.000 y 1 kilo $60.000, en grano o molido. Promociones, Club Raíces y kits.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Tienda | Café Raíces de Colombia">
+  <meta property="og:description" content="½ libra, 1 libra y 1 kilo de café 100 % arábica, en grano o molido.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="tienda">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Tienda</nav>
+      <h1>Tienda</h1>
+      <p class="lead">Café 100 % arábica tostado en Popayán. Elige presentación y molienda. ¿No sabes cuál? <a href="quiz.html">Encuentra tu café</a>.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-catalogo">
+    <div class="contenedor">
+      <h2 id="t-catalogo" class="visualmente-oculto">Productos</h2>
+      <form id="filtros" class="filtros tarjeta" aria-label="Filtrar productos">
+        <fieldset class="campo">
+          <legend>Presentación</legend>
+          <div class="opciones">
+            <label class="opcion"><input type="radio" name="presentacion" value="todas" checked><span>Todas</span></label>
+            <label class="opcion"><input type="radio" name="presentacion" value="media-libra"><span>½ libra</span></label>
+            <label class="opcion"><input type="radio" name="presentacion" value="libra"><span>1 libra</span></label>
+            <label class="opcion"><input type="radio" name="presentacion" value="kilo"><span>1 kilo</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="campo">
+          <legend>Molienda</legend>
+          <div class="opciones">
+            <label class="opcion"><input type="radio" name="molienda" value="molido" checked><span>Molido</span></label>
+            <label class="opcion"><input type="radio" name="molienda" value="grano"><span>En grano</span></label>
+          </div>
+        </fieldset>
+      </form>
+      <p id="conteo-productos" class="suave pequeno" aria-live="polite"></p>
+      <div class="grilla grilla-3" id="lista-productos"></div>
+
+      <h3 style="margin-top:40px">Características de todas las presentaciones</h3>
+      <div class="tabla-scroll">
+        <table>
+          <caption class="visualmente-oculto">Presentaciones y precios</caption>
+          <thead><tr><th scope="col">Presentación</th><th scope="col">Peso</th><th scope="col">Molienda</th><th scope="col">Precio</th><th scope="col">Para quién</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Media libra</th><td>226 g</td><td>Grano o molido</td><td>$18.000</td><td>Para probar la marca</td></tr>
+            <tr><th scope="row">Libra</th><td>453 g</td><td>Grano o molido</td><td>$33.000</td><td>Consumo de un hogar durante unas semanas</td></tr>
+            <tr><th scope="row">Kilo</th><td>1.000 g</td><td>Grano o molido</td><td>$60.000</td><td>Familias grandes, oficinas o pequeños negocios</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pequeno suave" style="margin-top:8px">Bolsa pouch kraft con válvula unidireccional y sellado al vacío. Precios en pesos colombianos; no incluyen envío. Impuestos: <span class="pendiente">[POR CONFIRMAR régimen de IVA]</span>.</p>
+    </div>
+  </section>
+
+  <!-- Promociones y paquetes -->
+  <section class="seccion seccion-tinte" aria-labelledby="t-promos">
+    <div class="contenedor">
+      <h2 id="t-promos">Promociones y paquetes</h2>
+      <div class="grilla grilla-2" style="margin-top:20px">
+        <div class="tarjeta">
+          <p class="eyebrow">Promoción de bienvenida</p>
+          <h3>10 % en tu primera compra</h3>
+          <p>Suscríbete al boletín y recibe el código <strong>BIENVENIDA10</strong>. Escríbelo en el carrito antes de pagar.</p>
+          <a class="boton boton-secundario boton-pequeno" href="index.html#boletin">Recibir mi código</a>
+        </div>
+        <div class="tarjeta">
+          <p class="eyebrow">Membresía</p>
+          <h3>Club Raíces: 10 % en cada envío</h3>
+          <p>Tu café cada 15 o 30 días. Lo pausas o lo cancelas desde tu cuenta.</p>
+          <a class="boton boton-secundario boton-pequeno" href="club.html">Ver el Club</a>
+        </div>
+        <div class="tarjeta">
+          <p class="eyebrow">Paquetes</p>
+          <h3>Kits y regalos</h3>
+          <p>Combinaciones de presentaciones con tarjeta de la familia productora, para fechas especiales.</p>
+          <a class="boton boton-secundario boton-pequeno" href="kits.html">Ver kits</a>
+        </div>
+        <div class="tarjeta">
+          <p class="eyebrow">Negocios</p>
+          <h3>Ventas por volumen</h3>
+          <p>Precios especiales para cafeterías, tiendas y oficinas, por cotización.</p>
+          <a class="boton boton-secundario boton-pequeno" href="kits.html#volumen">Pedir cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

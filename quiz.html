@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encuentra tu café | Café Raíces de Colombia</title>
+  <meta name="description" content="Responde 4 preguntas y te recomendamos la presentación y la molienda ideales para ti.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Encuentra tu café | Café Raíces de Colombia">
+  <meta property="og:description" content="4 preguntas para elegir tu presentación y molienda.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="quiz">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Encuentra tu café</nav>
+      <h1>Encuentra tu café</h1>
+      <p class="lead">Responde 4 preguntas y te recomendamos la presentación y la molienda que mejor se ajustan a ti.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px">
+    <div class="contenedor" style="max-width:760px">
+      <!-- Lógica de recomendación en main.js → PAGINAS.quiz -->
+      <form id="form-quiz" class="tarjeta formulario" novalidate>
+        <p id="progreso-quiz" class="eyebrow" aria-live="polite">Pregunta 1 de 4</p>
+
+        <fieldset class="pregunta-quiz campo">
+          <legend tabindex="-1"><h2 style="font-size:1.4rem;margin:0">¿Cómo preparas tu café hoy?</h2></legend>
+          <div style="display:grid;gap:10px">
+            <label class="medio-pago"><input type="radio" name="metodo" value="instantaneo"><span>Tomo café instantáneo y no tengo cafetera</span></label>
+            <label class="medio-pago"><input type="radio" name="metodo" value="olla"><span>En olla o con colador de tela</span></label>
+            <label class="medio-pago"><input type="radio" name="metodo" value="cafetera"><span>En cafetera de goteo, greca o prensa francesa</span></label>
+            <label class="medio-pago"><input type="radio" name="metodo" value="molino"><span>Tengo molino y muelo el café en casa</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="pregunta-quiz campo" hidden>
+          <legend tabindex="-1"><h2 style="font-size:1.4rem;margin:0">¿Cuántas tazas se toman al día en tu casa?</h2></legend>
+          <div style="display:grid;gap:10px">
+            <label class="medio-pago"><input type="radio" name="tazas" value="1"><span>Una o menos</span></label>
+            <label class="medio-pago"><input type="radio" name="tazas" value="2"><span>Entre dos y cuatro</span></label>
+            <label class="medio-pago"><input type="radio" name="tazas" value="3"><span>Cinco o más</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="pregunta-quiz campo" hidden>
+          <legend tabindex="-1"><h2 style="font-size:1.4rem;margin:0">¿Para quién es el café?</h2></legend>
+          <div style="display:grid;gap:10px">
+            <label class="medio-pago"><input type="radio" name="para" value="mi"><span>Para mí</span></label>
+            <label class="medio-pago"><input type="radio" name="para" value="casa"><span>Para toda la casa</span></label>
+            <label class="medio-pago"><input type="radio" name="para" value="negocio"><span>Para mi oficina o negocio</span></label>
+            <label class="medio-pago"><input type="radio" name="para" value="regalo"><span>Para regalar</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="pregunta-quiz campo" hidden>
+          <legend tabindex="-1"><h2 style="font-size:1.4rem;margin:0">¿Qué buscas?</h2></legend>
+          <div style="display:grid;gap:10px">
+            <label class="medio-pago"><input type="radio" name="busca" value="probar"><span>Probar primero, sin gastar mucho</span></label>
+            <label class="medio-pago"><input type="radio" name="busca" value="siempre"><span>Tener café siempre, sin pensar en comprarlo</span></label>
+            <label class="medio-pago"><input type="radio" name="busca" value="rendimiento"><span>Que me rinda más por mi dinero</span></label>
+          </div>
+        </fieldset>
+
+        <div class="grupo-botones">
+          <button class="boton boton-primario" type="submit" id="quiz-siguiente">Siguiente</button>
+          <button class="boton boton-secundario" type="button" id="quiz-anterior" hidden>Anterior</button>
+        </div>
+      </form>
+
+      <div id="resultado-quiz" class="tarjeta" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

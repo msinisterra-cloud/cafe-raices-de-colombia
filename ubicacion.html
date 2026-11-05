@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ubicación: Popayán, Cauca | Café Raíces de Colombia</title>
+  <meta name="description" content="Nuestra planta está en Popayán, Cauca. Desde allí tostamos, empacamos y despachamos a todo el país.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Ubicación | Café Raíces de Colombia">
+  <meta property="og:description" content="Planta en Popayán, Cauca.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="ubicacion">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Ubicación</nav>
+      <h1>Dónde estamos</h1>
+      <p class="lead">Nuestra planta está en Popayán, Cauca, una región reconocida por sus suelos volcánicos y su tradición cafetera.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-mapa">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <div>
+        <h2 id="t-mapa">Planta de Café Raíces</h2>
+        <p>Allí recibimos el café de las familias aliadas, lo trillamos, lo tostamos, lo empacamos y despachamos los pedidos a todo el país con una transportadora nacional.</p>
+        <dl class="datos-origen">
+          <div><dt>Ciudad</dt><dd>Popayán, Cauca, Colombia</dd></div>
+          <div><dt>Dirección</dt><dd><span class="pendiente">[POR CONFIRMAR dirección]</span></dd></div>
+          <div><dt>Horario</dt><dd><span class="pendiente">[POR CONFIRMAR horario de atención]</span></dd></div>
+          <div><dt>Visitas</dt><dd>Somos una tienda en línea; las compras se hacen por el sitio o por WhatsApp. <span class="pendiente">[POR CONFIRMAR si la planta recibe visitas o permite recoger pedidos]</span></dd></div>
+        </dl>
+        <p style="margin-top:16px">Primeras campañas de envío: <strong>Palmira y Cali</strong> (Valle del Cauca).</p>
+        <a class="boton boton-whatsapp" data-whatsapp="Hola, Café Raíces. Quiero saber más sobre su ubicación.">Escribir por WhatsApp</a>
+      </div>
+      <!-- Mapa de Google Maps (iframe sin llave de API). Cuando haya dirección exacta,
+           reemplazar "q=Popayán, Cauca, Colombia" por la dirección o las coordenadas de la planta. -->
+      <div class="marco-16x9 marco-mapa">
+        <iframe
+          src="https://www.google.com/maps?q=Popay%C3%A1n%2C%20Cauca%2C%20Colombia&z=13&output=embed"
+          title="Mapa de Google Maps: Popayán, Cauca, Colombia"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+      <p class="pequeno" style="margin-top:8px"><a href="https://www.google.com/maps/search/?api=1&amp;query=Popay%C3%A1n%2C%20Cauca%2C%20Colombia" target="_blank" rel="noopener">Abrir en Google Maps</a></p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kits, regalos y ventas por volumen | Café Raíces de Colombia</title>
+  <meta name="description" content="Kits de café para regalar con la tarjeta de la familia productora, y precios por volumen para cafeterías, tiendas y oficinas.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Kits y ventas por volumen | Café Raíces de Colombia">
+  <meta property="og:description" content="Regala café de origen o pide una cotización para tu negocio.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="kits">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Kits y ventas por volumen</nav>
+      <h1>Kits y regalos</h1>
+      <p class="lead">Combinaciones de nuestras presentaciones con una tarjeta de la familia productora, para fechas especiales.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-kits">
+    <div class="contenedor">
+      <h2 id="t-kits" class="visualmente-oculto">Kits disponibles</h2>
+      <!-- La composición y el precio de cada kit NO están definidos en la Entrega 2 ("según la combinación").
+           Cuando el equipo los defina, completarlos aquí y en js/productos.js (CATALOGO.kits). -->
+      <div class="grilla grilla-2">
+        <article class="tarjeta">
+          <div class="foto-pendiente" style="margin-bottom:14px"><div><strong>[FOTO REAL POR CONFIRMAR]</strong>Foto del kit armado con la tarjeta de la familia.</div></div>
+          <h3><span class="pendiente">[POR CONFIRMAR nombre del kit]</span></h3>
+          <p>Contenido: <span class="pendiente">[POR CONFIRMAR composición]</span></p>
+          <p>Precio: <span class="pendiente">[POR CONFIRMAR precio]</span></p>
+          <a class="boton boton-whatsapp boton-pequeno" data-whatsapp="Hola, Café Raíces. Quiero información sobre los kits de regalo.">Pedir por WhatsApp</a>
+        </article>
+        <article class="tarjeta">
+          <div class="foto-pendiente" style="margin-bottom:14px"><div><strong>[FOTO REAL POR CONFIRMAR]</strong>Foto del kit armado con la tarjeta de la familia.</div></div>
+          <h3><span class="pendiente">[POR CONFIRMAR nombre del kit]</span></h3>
+          <p>Contenido: <span class="pendiente">[POR CONFIRMAR composición]</span></p>
+          <p>Precio: <span class="pendiente">[POR CONFIRMAR precio]</span></p>
+          <a class="boton boton-whatsapp boton-pequeno" data-whatsapp="Hola, Café Raíces. Quiero información sobre los kits de regalo.">Pedir por WhatsApp</a>
+        </article>
+      </div>
+      <p class="suave" style="margin-top:16px">¿Quieres armar tu propia combinación? Agrega las presentaciones que quieras desde la <a href="tienda.html">tienda</a> y cuéntanos en las indicaciones del pedido que es para regalo.</p>
+    </div>
+  </section>
+
+  <section class="seccion seccion-tinte" id="volumen" aria-labelledby="t-volumen">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <div>
+        <p class="eyebrow">Para negocios (B2B)</p>
+        <h2 id="t-volumen">Ventas por volumen</h2>
+        <p>Precios especiales para cafeterías, tiendas y oficinas. Te enviamos una cotización a la medida por WhatsApp o correo.</p>
+        <ul class="lista-check">
+          <li>Café 100 % arábica tostado en origen, en grano o molido.</li>
+          <li>Presentación de 1 kilo para negocios y oficinas.</li>
+          <li>Cada lote indica finca, familia, proceso y fecha de tueste.</li>
+          <li>Despacho desde Popayán con número de seguimiento.</li>
+        </ul>
+        <a href="docs/Portafolio_Cafe_Raices_de_Colombia.pdf" download>Descargar portafolio de servicios (PDF)</a>
+      </div>
+      <form class="tarjeta formulario" data-formulario="cotizacion" aria-labelledby="t-cotizacion">
+        <h3 id="t-cotizacion">Solicita tu cotización</h3>
+        <div class="campo"><label for="cot-empresa">Nombre del negocio o empresa</label><input id="cot-empresa" name="empresa" type="text" required autocomplete="organization"></div>
+        <div class="campo"><label for="cot-tipo">Tipo de negocio</label>
+          <select id="cot-tipo" name="tipo" required>
+            <option value="">Elige una opción</option>
+            <option>Cafetería</option><option>Tienda</option><option>Oficina</option><option>Restaurante u hotel</option><option>Otro</option>
+          </select></div>
+        <div class="fila-campos">
+          <div class="campo"><label for="cot-ciudad">Ciudad</label><input id="cot-ciudad" name="ciudad" type="text" required autocomplete="address-level2"></div>
+          <div class="campo"><label for="cot-presentacion">Presentación</label>
+            <select id="cot-presentacion" name="presentacion" required>
+              <option value="">Elige una opción</option>
+              <option>½ libra (226 g)</option><option>1 libra (453 g)</option><option>1 kilo</option><option>Varias</option>
+            </select></div>
+        </div>
+        <div class="campo"><label for="cot-cantidad">Cantidad aproximada al mes</label><input id="cot-cantidad" name="cantidad" type="text" required placeholder="Ej.: 10 kilos"></div>
+        <div class="fila-campos">
+          <div class="campo"><label for="cot-nombre">Tu nombre</label><input id="cot-nombre" name="nombre" type="text" required autocomplete="name"></div>
+          <div class="campo"><label for="cot-telefono">Celular</label><input id="cot-telefono" name="telefono" type="tel" required autocomplete="tel" inputmode="numeric" pattern="3[0-9]{9}" data-error="Escribe un celular colombiano de 10 dígitos que empiece por 3."></div>
+        </div>
+        <div class="campo"><label for="cot-correo">Correo electrónico</label><input id="cot-correo" name="correo" type="email" required autocomplete="email"></div>
+        <label class="casilla"><input type="checkbox" name="autorizacion" id="cot-autorizacion" required><span>Autorizo el tratamiento de mis datos para recibir esta cotización, según la <a href="legal.html#datos">política de datos personales</a>.</span></label>
+        <div><button class="boton boton-primario" type="submit">Enviar solicitud</button></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

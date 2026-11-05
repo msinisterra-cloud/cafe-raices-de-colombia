@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Novedades y boletín | Café Raíces de Colombia</title>
+  <meta name="description" content="Suscríbete al boletín de Café Raíces y recibe 10 % de bienvenida, recetas e historias de las familias caficultoras de Popayán.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Novedades y boletín | Café Raíces de Colombia">
+  <meta property="og:description" content="10 % de bienvenida, recetas e historias de origen.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="novedades">
+<main id="contenido">
+  <!-- Email marketing (enunciado §2.2) y Entrega 2, sección 10.1 -->
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Novedades</nav>
+      <h1>Novedades y boletín</h1>
+      <p class="lead">Recetas, historias de las familias caficultoras y promociones, directo a tu correo. Sin llenarte de mensajes.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-infografia">
+    <div class="contenedor dos-columnas">
+      <!-- Cuando el equipo tenga la infografía o póster, guardarla en img/ (ej. img/infografia.png)
+           y reemplazar este recuadro por <img src="img/infografia.png" alt="..." width="..." height="..." loading="lazy">.
+           El enunciado pide que muestre: nombre, eslogan, logotipo, ciudad, dirección, WhatsApp y redes (Facebook, Instagram y YouTube). -->
+      <div class="foto-pendiente" style="min-height:360px"><div><strong>[INFOGRAFÍA O PÓSTER POR CONFIRMAR]</strong>Pieza de email marketing del equipo, con nombre, eslogan, logotipo, ciudad, dirección, WhatsApp y redes sociales.</div></div>
+      <div>
+        <h2 id="t-infografia">Nuestra campaña</h2>
+        <p>Usamos el correo para acompañarte después de tu compra: darte la bienvenida, confirmar tus pedidos, avisarte cuando tu café se esté acabando y compartirte recetas e historias de origen.</p>
+        <p class="pequeno suave">Solo te escribimos con tu autorización (Ley 1581 de 2012) y cada correo trae la opción de cancelar la suscripción.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-tinte" aria-labelledby="t-correos">
+    <div class="contenedor">
+      <h2 id="t-correos">Los correos que recibirás</h2>
+      <div class="grilla grilla-4" style="margin-top:16px">
+        <article class="tarjeta"><p class="eyebrow">Al registrarte</p><h3>Bienvenida</h3><p>La historia de la marca, tu código <strong>BIENVENIDA10</strong>, las presentaciones con sus precios y una receta sin cafetera.</p></article>
+        <article class="tarjeta"><p class="eyebrow">Al pagar</p><h3>Confirmación de pedido</h3><p>El resumen de tu compra, la factura y el tiempo estimado de entrega.</p></article>
+        <article class="tarjeta"><p class="eyebrow">25 días después</p><h3>Recordatorio de recompra</h3><p>Un aviso de que tu café se está acabando, un enlace para repetir el pedido y la invitación al Club Raíces.</p></article>
+        <article class="tarjeta"><p class="eyebrow">Una vez al mes</p><h3>Boletín mensual</h3><p>La receta del mes, la historia de una familia caficultora y la promoción vigente.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-muestra">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <!-- Vista previa del correo de bienvenida (Entrega 2, figura 10.1) -->
+      <article class="tarjeta" style="padding:0;overflow:hidden" aria-labelledby="t-muestra">
+        <div style="background:var(--verde);color:var(--crema);padding:20px;text-align:center">
+          <p class="pequeno" style="margin:0;letter-spacing:.14em;color:var(--kraft)">100 % CAFÉ ARÁBICA COLOMBIANO</p>
+          <p style="margin:0;font-family:var(--fuente-titulos);font-size:1.4rem;font-weight:700">CAFÉ RAÍCES DE COLOMBIA</p>
+        </div>
+        <div style="padding:20px">
+          <p class="eyebrow">Bienvenido a la familia</p>
+          <h2 id="t-muestra" style="font-size:1.4rem">Hola, [Nombre]: gracias por unirte a Café Raíces</h2>
+          <p>Nuestro café es cosechado, tostado y empacado por familias caficultoras de Popayán, Cauca. Cuando compras directo, el valor de tu taza se queda en el campo.</p>
+          <p>Para darte la bienvenida, tu primera compra tiene <strong>10 % de descuento</strong> con el código <strong style="color:var(--terracota)">BIENVENIDA10</strong>.</p>
+          <p class="pequeno suave" style="margin:0">Vista previa del correo de bienvenida.</p>
+        </div>
+      </article>
+      <form class="tarjeta formulario" data-formulario="boletin" aria-labelledby="t-suscribirme">
+        <h2 id="t-suscribirme" style="font-size:1.4rem">Suscríbete y recibe 10 %</h2>
+        <div class="campo"><label for="n-nombre">Nombre</label><input id="n-nombre" name="nombre" type="text" autocomplete="given-name"></div>
+        <div class="campo"><label for="n-correo">Correo electrónico</label><input id="n-correo" name="correo" type="email" required autocomplete="email"></div>
+        <label class="casilla"><input type="checkbox" name="autorizacion" id="n-autorizacion" required><span>Autorizo a Café Raíces de Colombia a tratar mis datos para enviarme el boletín y promociones, según la <a href="legal.html#datos">política de datos personales (Ley 1581 de 2012)</a>.</span></label>
+        <!-- Herramienta de correo: Brevo o Mailchimp (plan gratuito), según la Entrega 2.
+             Conectar aquí el formulario incrustado de la herramienta o Formspree (ver main.js). -->
+        <div><button class="boton boton-acento" type="submit">Quiero mi 10 %</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>

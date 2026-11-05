@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Club Raíces: suscripción de café | Café Raíces de Colombia</title>
+  <meta name="description" content="Recibe tu café cada 15 o 30 días con 10 % de descuento. Eliges presentación y molienda; pausas o cancelas desde tu cuenta.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Club Raíces | Café Raíces de Colombia">
+  <meta property="og:description" content="Tu café cada 15 o 30 días con 10 % de descuento.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="club">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Club Raíces</nav>
+      <p class="eyebrow">Membresía</p>
+      <h1>Club Raíces</h1>
+      <p class="lead">Tu café cada 15 o 30 días, con 10 % de descuento y sin preocuparte por que se acabe. Pensado para quienes toman café todos los días.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-como">
+    <div class="contenedor">
+      <h2 id="t-como">Cómo funciona</h2>
+      <ol class="pasos" style="margin-top:20px;max-width:720px">
+        <li><div><b>Elige tu café</b>½ libra, 1 libra o 1 kilo, en grano o molido.</div></li>
+        <li><div><b>Elige la frecuencia</b>Cada 15 o cada 30 días.</div></li>
+        <li><div><b>Recíbelo en casa</b>Tostado fresco, con número de guía en cada envío y 10 % menos que el precio de lista.</div></li>
+        <li><div><b>Tú tienes el control</b>Lo pausas, cambias la frecuencia o lo cancelas desde <a href="cuenta.html#club">tu cuenta</a>, cuando quieras.</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion seccion-tinte" aria-labelledby="t-precios">
+    <div class="contenedor">
+      <h2 id="t-precios">Precios con 10 % de descuento</h2>
+      <div class="tabla-scroll" style="margin-top:16px">
+        <table>
+          <caption class="visualmente-oculto">Precio de lista y precio en el Club Raíces</caption>
+          <thead><tr><th scope="col">Presentación</th><th scope="col">Precio de lista</th><th scope="col">Precio en el Club</th></tr></thead>
+          <tbody id="precios-club"><!-- Lo calcula main.js desde productos.js --></tbody>
+        </table>
+      </div>
+      <p class="pequeno suave" style="margin-top:8px">Precio por envío, en pesos colombianos. El costo del envío se suma aparte: <span class="pendiente">[POR CONFIRMAR tarifa de envío para suscriptores]</span>.</p>
+    </div>
+  </section>
+
+  <section class="seccion" id="unirme" aria-labelledby="t-unirme">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <div>
+        <h2 id="t-unirme">Arma tu suscripción</h2>
+        <p>Elige tu plan. En esta versión del sitio la suscripción se confirma por WhatsApp, donde coordinamos el primer pago y la dirección de entrega.</p>
+        <p class="pequeno suave">Cobro automático de la suscripción: <span class="pendiente">[POR CONFIRMAR aplicación de suscripciones]</span>.</p>
+      </div>
+      <div class="tarjeta" id="suscribirse"></div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-kraft" aria-labelledby="t-faq-club">
+    <div class="contenedor">
+      <h2 id="t-faq-club">Preguntas frecuentes del Club</h2>
+      <div class="acordeon" style="margin-top:16px">
+        <details><summary>¿Tengo que quedarme un tiempo mínimo?</summary><div class="respuesta"><p>No. Puedes pausar o cancelar tu suscripción desde tu cuenta cuando quieras.</p></div></details>
+        <details><summary>¿Puedo cambiar la presentación o la frecuencia?</summary><div class="respuesta"><p>Sí. Desde Mi cuenta puedes cambiar entre 15 y 30 días. Para cambiar la presentación o la molienda, escríbenos por WhatsApp.</p></div></details>
+        <details><summary>¿El descuento se suma al código BIENVENIDA10?</summary><div class="respuesta"><p><span class="pendiente">[POR CONFIRMAR si los descuentos son acumulables]</span></p></div></details>
+        <details><summary>¿Qué pasa si no estoy en casa?</summary><div class="respuesta"><p>Con el número de guía puedes seguir el envío y coordinar la entrega con la transportadora.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

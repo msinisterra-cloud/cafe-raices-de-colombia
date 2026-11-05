@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi cuenta | Café Raíces de Colombia</title>
+  <meta name="description" content="Consulta tus pedidos, repite tu compra y administra tu suscripción al Club Raíces.">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Mi cuenta | Café Raíces de Colombia">
+  <meta property="og:description" content="Pedidos y Club Raíces.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="cuenta">
+<main id="contenido">
+  <!-- Cuenta SIMULADA: no hay inicio de sesión. Todo se guarda en localStorage del navegador.
+       En producción esto lo daría la plataforma de la tienda (cuentas de cliente y app de suscripciones). -->
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Mi cuenta</nav>
+      <h1>Mi cuenta</h1>
+      <p class="info-vendedor" style="max-width:720px">Versión de demostración: tus pedidos, tu suscripción y tus datos se guardan solo en este navegador. Inicio de sesión: <span class="pendiente">[POR CONFIRMAR plataforma de cuentas]</span>.</p>
+    </div>
+  </header>
+
+  <section class="seccion" style="padding-top:8px" aria-labelledby="t-pedidos">
+    <div class="contenedor">
+      <h2 id="t-pedidos">Mis pedidos</h2>
+      <div id="mis-pedidos"></div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-tinte" id="club" aria-labelledby="t-mi-club">
+    <div class="contenedor" style="max-width:820px">
+      <h2 id="t-mi-club">Mi Club Raíces</h2>
+      <div id="mi-club"></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-beneficios">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <div>
+        <h2 id="t-beneficios">Tus beneficios</h2>
+        <ul class="lista-check">
+          <li><strong>BIENVENIDA10:</strong> 10 % en tu primera compra por suscribirte al boletín.</li>
+          <li><strong>Club Raíces:</strong> 10 % en cada envío recurrente.</li>
+          <li><strong>Recordatorio de recompra:</strong> te avisamos 25 días después de la entrega, cuando tu café se está acabando.</li>
+          <li><strong>Boletín mensual:</strong> receta del mes, historia de una familia caficultora y promoción vigente.</li>
+          <li><strong>Repetir pedido</strong> con un clic desde tus pedidos.</li>
+        </ul>
+      </div>
+      <form id="form-mis-datos" class="tarjeta formulario" novalidate aria-labelledby="t-datos">
+        <h3 id="t-datos">Mis datos</h3>
+        <div class="campo"><label for="md-nombre">Nombre</label><input id="md-nombre" name="nombre" type="text" required autocomplete="name"></div>
+        <div class="campo"><label for="md-correo">Correo electrónico</label><input id="md-correo" name="correo" type="email" required autocomplete="email"></div>
+        <div class="campo"><label for="md-celular">Celular</label><input id="md-celular" name="celular" type="tel" autocomplete="tel" inputmode="numeric" pattern="3[0-9]{9}" data-error="Escribe un celular colombiano de 10 dígitos que empiece por 3."></div>
+        <label class="casilla"><input type="checkbox" name="recordatorio" id="md-recordatorio"><span>Quiero recibir el recordatorio de recompra por correo o WhatsApp.</span></label>
+        <div><button class="boton boton-primario" type="submit">Guardar mis datos</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>

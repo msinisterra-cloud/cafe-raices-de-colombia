@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Café Raíces de Colombia | Café de origen tostado en Popayán</title>
+  <meta name="description" content="Café 100 % arábica tostado en origen por familias caficultoras de Popayán, Cauca. En grano o molido, directo a tu casa. Paga con Nequi, Daviplata o PSE.">
+  <!-- Open Graph: cuando el sitio esté publicado, cambiar og:url y og:image por la URL completa de GitHub Pages [POR CONFIRMAR] -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Café Raíces de Colombia — De nuestras raíces a tu taza">
+  <meta property="og:description" content="Café de origen, tostado fresco y directo a tu casa desde Popayán, Cauca.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta property="og:url" content="index.html">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="inicio">
+<!-- El encabezado, el pie, el chat, el botón de WhatsApp y el banner de cookies los inserta js/main.js -->
+<main id="contenido">
+
+  <!-- Bloque 2 del wireframe: Hero -->
+  <section class="hero">
+    <div class="contenedor hero-grid">
+      <div>
+        <p class="eyebrow">Popayán, Cauca · 100 % arábica</p>
+        <h1>Café de origen, tostado fresco y directo a tu casa</h1>
+        <p class="lead">Café 100 % arábica de familias caficultoras de Popayán, tostado en origen y empacado al vacío. En grano o molido, listo para preparar aunque no tengas cafetera.</p>
+        <div class="grupo-botones">
+          <a class="boton boton-primario" href="tienda.html">Comprar ahora</a>
+          <a class="boton boton-secundario" href="quiz.html">Encuentra tu café</a>
+        </div>
+      </div>
+      <figure class="hero-imagen" style="margin:0">
+        <img src="img/empaque.png" alt="Tres bolsas kraft con etiqueta verde de Café Raíces de Colombia: 1 kg, 453 g y 226 g" width="514" height="415">
+        <figcaption>Nuestras tres presentaciones: 1 kilo, 1 libra y ½ libra.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Bloque 3: Beneficios -->
+  <section class="seccion seccion-tinte" aria-label="Por qué elegirnos">
+    <div class="contenedor grilla grilla-4">
+      <div class="beneficio"><span class="icono" aria-hidden="true">☕</span><p><strong>Tostado fresco</strong><br>Ningún pedido sale con más de 15 días de tostado.</p></div>
+      <div class="beneficio"><span class="icono" aria-hidden="true">🌱</span><p><strong>Directo de las familias</strong><br>Origen en familias caficultoras de Popayán.</p></div>
+      <div class="beneficio"><span class="icono" aria-hidden="true">📦</span><p><strong>Envío con seguimiento</strong><br>Te enviamos el número de guía de tu pedido.</p></div>
+      <div class="beneficio"><span class="icono" aria-hidden="true">📱</span><p><strong>Paga fácil</strong><br>Con Nequi, Daviplata o PSE.</p></div>
+    </div>
+  </section>
+
+  <!-- Bloque 4: Productos destacados y promociones -->
+  <section class="seccion" aria-labelledby="t-productos">
+    <div class="contenedor">
+      <div class="encabezado-seccion">
+        <p class="eyebrow">Tienda</p>
+        <h2 id="t-productos">Elige tu presentación</h2>
+        <p class="lead">En grano o molido. Precios en pesos colombianos; el envío se suma aparte.</p>
+      </div>
+      <div class="grilla grilla-3" id="productos-destacados"><!-- Lo llena main.js desde productos.js --></div>
+
+      <h3 style="margin-top:40px">Promociones</h3>
+      <div class="grilla grilla-3">
+        <div class="tarjeta">
+          <p class="eyebrow">Bienvenida</p>
+          <h3>10 % en tu primera compra</h3>
+          <p>Suscríbete al boletín y usa el código <strong>BIENVENIDA10</strong> en el carrito.</p>
+          <a href="#boletin">Quiero mi código →</a>
+        </div>
+        <div class="tarjeta">
+          <p class="eyebrow">Club Raíces</p>
+          <h3>10 % en cada envío</h3>
+          <p>Recibe tu café cada 15 o 30 días y paga menos que el precio de lista.</p>
+          <a href="club.html">Conocer el Club →</a>
+        </div>
+        <div class="tarjeta">
+          <p class="eyebrow">Paquetes</p>
+          <h3>Kits y regalos</h3>
+          <p>Combinaciones de presentaciones con la tarjeta de la familia productora, para fechas especiales.</p>
+          <a href="kits.html">Ver kits →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video publicitario (enunciado: 40-50 s, publicado en YouTube) -->
+  <section class="seccion seccion-oscura" aria-labelledby="t-video">
+    <div class="contenedor dos-columnas">
+      <div>
+        <p class="eyebrow" style="color:var(--kraft)">Video</p>
+        <h2 id="t-video">¿Sabes de dónde viene tu café?</h2>
+        <p class="lead">En Popayán, familias caficultoras cultivan, cosechan y secan cada grano. Lo tostamos y empacamos en origen, sin intermediarios, y llega fresco a tu casa.</p>
+        <a class="boton boton-claro" href="origen.html">Conoce nuestro origen</a>
+      </div>
+      <div class="marco-16x9" data-video="publicitario"><!-- main.js inserta el iframe de YouTube o el recuadro pendiente --></div>
+    </div>
+  </section>
+
+  <!-- Bloque 5: Prepáralo sin cafetera -->
+  <section class="seccion" aria-labelledby="t-sin-cafetera">
+    <div class="contenedor dos-columnas">
+      <div class="marco-16x9" data-video="receta"></div>
+      <div>
+        <h2 id="t-sin-cafetera">¿No tienes cafetera? No la necesitas</h2>
+        <p>Calienta una taza de agua, agrega 2 cucharadas de café molido, deja reposar 4 minutos y cuela. Así de fácil.</p>
+        <p class="suave">Si no tienes molino, pide tu café molido.</p>
+        <a class="boton boton-secundario" href="preparar.html">Ver recetas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloque 6: Club Raíces -->
+  <section class="seccion" aria-labelledby="t-club">
+    <div class="contenedor">
+      <div class="banda-club">
+        <div>
+          <h2 id="t-club">Club Raíces: tu café cada 15 o 30 días con 10 % de descuento</h2>
+          <p style="margin:0">Eliges presentación, molienda y frecuencia. Lo pausas o lo cancelas desde tu cuenta cuando quieras.</p>
+        </div>
+        <a class="boton boton-claro" href="club.html">Suscribirme</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloque 7: Nuestro origen -->
+  <section class="seccion seccion-kraft" aria-labelledby="t-origen">
+    <div class="contenedor dos-columnas">
+      <div class="foto-pendiente"><div><strong>[FOTO REAL POR CONFIRMAR]</strong>Foto de la familia caficultora en su finca, en Popayán.</div></div>
+      <div>
+        <p class="eyebrow">Nuestro origen</p>
+        <h2 id="t-origen">Conoce a quienes cultivan tu café</h2>
+        <p>Compramos el café directamente a familias caficultoras aliadas de Popayán, una región reconocida por sus suelos volcánicos y su tradición cafetera. Cuando compras directo, el valor de tu taza se queda en el campo.</p>
+        <a class="boton boton-secundario" href="origen.html">Ver historias</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloque 8: Reseñas (arrancan vacías; no se precargan reseñas) -->
+  <section class="seccion" aria-labelledby="t-resenas">
+    <div class="contenedor">
+      <h2 id="t-resenas">Lo que dicen nuestros clientes</h2>
+      <div id="resenas-inicio"></div>
+    </div>
+  </section>
+
+  <!-- Medios de pago -->
+  <section class="seccion seccion-tinte" aria-labelledby="t-pagos">
+    <div class="contenedor centro">
+      <h2 id="t-pagos">Paga como prefieras</h2>
+      <ul class="chips medios-pago" style="justify-content:center;margin-bottom:12px">
+        <li class="chip">Nequi</li><li class="chip">Daviplata</li><li class="chip">PSE</li><li class="chip">Tarjeta</li><li class="chip">Contra entrega</li>
+      </ul>
+      <p class="pequeno suave">Logos oficiales de los medios de pago: <span class="pendiente">[POR CONFIRMAR al activar la pasarela]</span>. Contra entrega donde la transportadora lo permita. <a href="ayuda.html#pagos">¿Cómo funciona cada uno?</a></p>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="seccion" id="boletin" aria-labelledby="t-boletin">
+    <div class="contenedor dos-columnas">
+      <div>
+        <p class="eyebrow">Boletín</p>
+        <h2 id="t-boletin">10 % de bienvenida en tu primera compra</h2>
+        <p>Una vez al mes te enviamos una receta, la historia de una familia caficultora y la promoción vigente. Puedes cancelar cuando quieras.</p>
+      </div>
+      <form class="tarjeta formulario" data-formulario="boletin">
+        <div class="campo">
+          <label for="boletin-correo">Tu correo electrónico</label>
+          <input id="boletin-correo" name="correo" type="email" required autocomplete="email" placeholder="nombre@correo.com">
+        </div>
+        <label class="casilla"><input type="checkbox" name="autorizacion" id="boletin-autorizacion" required>
+          <span>Autorizo a Café Raíces de Colombia a tratar mis datos para enviarme el boletín y promociones, según la <a href="legal.html#datos">política de datos personales (Ley 1581 de 2012)</a>.</span></label>
+        <div><button class="boton boton-acento" type="submit">Quiero mi 10 %</button></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+<noscript><p class="contenedor">Para usar el carrito, el chat y el menú, activa JavaScript en tu navegador.</p></noscript>
+</body>
+</html>

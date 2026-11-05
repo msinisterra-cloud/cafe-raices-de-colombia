@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Plantilla única de ficha: producto.html?id=media-libra | libra | kilo.
+       main.js lee el id, busca el producto en productos.js y ajusta título y descripción. -->
+  <title>Producto | Café Raíces de Colombia</title>
+  <meta name="description" content="Café 100 % arábica tostado en Popayán, en grano o molido. Pide en línea o por WhatsApp.">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Café Raíces de Colombia">
+  <meta property="og:description" content="Café 100 % arábica tostado en origen, en grano o molido.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="producto">
+<main id="contenido">
+  <div class="contenedor" style="padding-top:24px" id="ficha">
+    <p>Cargando producto…</p>
+  </div>
+</main>
+<noscript><p class="contenedor">Activa JavaScript para ver la ficha del producto, o <a href="tienda.html">vuelve a la tienda</a>.</p></noscript>
+</body>
+</html>

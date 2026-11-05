@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- El código QR del empaque apunta a esta página: origen.html?lote=NUMERO -->
+  <title>Nuestro origen: familias caficultoras de Popayán | Café Raíces de Colombia</title>
+  <meta name="description" content="Conoce a las familias caficultoras de Popayán, el recorrido del café del cultivo a tu taza y la trazabilidad de cada lote.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Café Raíces de Colombia">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="Nuestro origen | Café Raíces de Colombia">
+  <meta property="og:description" content="Del cultivo en Popayán a tu taza, con trazabilidad por lote.">
+  <meta property="og:image" content="img/empaque.png">
+  <meta name="theme-color" content="#1B3626">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/productos.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-pagina="origen">
+<main id="contenido">
+
+  <header class="cabecera-pagina">
+    <div class="contenedor">
+      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a> › Nuestro origen</nav>
+      <h1>Nuestro origen</h1>
+      <p class="lead">En Popayán, familias caficultoras cultivan, cosechan y secan cada grano. Nosotros lo tostamos y empacamos en origen, sin intermediarios.</p>
+    </div>
+  </header>
+
+  <!-- Trazabilidad por lote: el QR del empaque trae ?lote= -->
+  <section class="seccion seccion-kraft" id="lote-buscar" aria-labelledby="t-lote">
+    <div class="contenedor dos-columnas" style="align-items:start">
+      <div>
+        <h2 id="t-lote">¿De dónde viene tu bolsa?</h2>
+        <p>Escanea el código QR de tu empaque o escribe el número de lote que aparece en la etiqueta.</p>
+        <form class="formulario" action="origen.html" method="get" style="max-width:420px">
+          <div class="campo">
+            <label for="lote">Número de lote</label>
+            <div style="display:flex;gap:8px">
+              <input id="lote" name="lote" type="text" required maxlength="30" autocomplete="off">
+              <button class="boton boton-primario boton-pequeno" type="submit">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="resultado-lote" class="tarjeta" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-familias">
+    <div class="contenedor dos-columnas">
+      <div class="foto-pendiente"><div><strong>[FOTO REAL POR CONFIRMAR]</strong>Retrato de una familia caficultora aliada en su finca.</div></div>
+      <div>
+        <h2 id="t-familias">Las familias</h2>
+        <p>Trabajamos directamente con familias caficultoras aliadas de Popayán. Ellas entregan el café pergamino seco en nuestra planta, y registramos cada lote con la finca, la familia, la variedad y el proceso.</p>
+        <p>Con la venta directa, las familias reciben un precio justo y conservan el valor agregado de la tostión y el empaque. Cada pedido lleva una tarjeta con la historia de la familia productora.</p>
+        <p><span class="pendiente">[POR CONFIRMAR nombres e historias de las familias, con su autorización]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-oscura" aria-labelledby="t-popayan">
+    <div class="contenedor dos-columnas">
+      <div>
+        <h2 id="t-popayan">Popayán, Cauca</h2>
+        <p class="lead">Una región reconocida por sus suelos volcánicos y su tradición cafetera. Allí está nuestra planta, desde donde tostamos, empacamos y despachamos cada pedido.</p>
+        <a class="boton boton-claro" href="ubicacion.html">Ver ubicación</a>
+      </div>
+      <div class="marco-16x9" data-video="publicitario"></div>
+    </div>
+  </section>
+
+  <section class="seccion" aria-labelledby="t-recorrido">
+    <div class="contenedor">
+      <h2 id="t-recorrido">Del cultivo a tu taza</h2>
+      <ol class="pasos" style="margin-top:20px;max-width:760px">
+        <li><div><b>Cosecha</b>Las familias recogen las cerezas maduras en el cafetal.</div></li>
+        <li><div><b>Secado</b>El café se seca al sol en la finca y se entrega como pergamino seco en la planta.</div></li>
+        <li><div><b>Registro del lote</b>Anotamos la finca, la familia, la variedad y el proceso.</div></li>
+        <li><div><b>Trilla y tostión</b>Trillamos y tostamos por lotes según los pedidos y las suscripciones, para que nada salga con más de 15 días de tostado.</div></li>
+        <li><div><b>Empaque</b>Molemos o dejamos en grano, y sellamos al vacío en bolsa kraft con válvula unidireccional.</div></li>
+        <li><div><b>Despacho</b>Enviamos tu pedido en caja de cartón reciclable, con número de guía para que lo sigas hasta tu casa.</div></li>
+      </ol>
+      <p style="margin-top:20px"><a href="logistica.html">Conoce cómo almacenamos, alistamos y enviamos →</a></p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

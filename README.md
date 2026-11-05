@@ -2,6 +2,8 @@
 
 *De nuestras raíces a tu taza.*
 
+**Sitio publicado:** https://msinisterra-cloud.github.io/cafe-raices-de-colombia/
+
 Tienda virtual B2C/D2C de café 100 % arábica tostado en origen en Popayán, Cauca. Es el proyecto final del curso **Comercio Electrónico** de la Universidad Nacional de Colombia, sede Palmira (2026). Docente: M. Sc. Luis Adrián Lasso Cardona.
 
 ## Equipo

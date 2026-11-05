@@ -27,7 +27,7 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 | 2.2 | Email marketing (infografía o póster) | `novedades.html` | ⚠️ falta la infografía del equipo |
 | 2.3 | Portafolio de servicios | `docs/Portafolio_Cafe_Raices_de_Colombia.pdf` (enlazado en el pie, `nosotros.html` y `kits.html`) | ✅ |
 | 2.4 | Video de 40 a 50 s en YouTube | Constante `YOUTUBE_VIDEO_ID` en `js/main.js` | ⚠️ falta el enlace (ver la contradicción a) |
-| — | URL del sitio implementado (entrega 3) | GitHub Pages (ver README) | ⚠️ pendiente publicar |
+| — | URL del sitio implementado (entrega 3) | https://msinisterra-cloud.github.io/cafe-raices-de-colombia/ | ✅ publicado el 4 de noviembre de 2026 |
 
 ---
 
@@ -103,7 +103,7 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 - **Formularios:** conectar Formspree, o el formulario de Brevo o Mailchimp para el boletín. Está comentado en `activarFormularios()`.
 - **Reseñas reales:** hoy viven en el `localStorage` de cada navegador. Para producción hace falta una app de reseñas o un backend.
 - **Cuenta y suscripción reales:** hoy son simuladas en `localStorage`.
-- **Mapa de Google Maps:** el iframe está en `ubicacion.html`. En la prueba local se hizo la petición, pero el navegador interno usado para probar no dibujó el mapa. **Hay que comprobarlo en Chrome o Edge** una vez publicado. Se agregó un enlace «Abrir en Google Maps» como respaldo.
+- **Mapa de Google Maps:** comprobado el 4 de noviembre de 2026 en el sitio publicado: el mapa de Popayán se ve. Falta cambiarlo por la dirección exacta de la planta.
 - **Imágenes:** solo existe `img/empaque.png` (514 × 415 px). El 4 de noviembre se recortó una bolsa por presentación (`img/bolsa-kilo.png`, `bolsa-libra.png` y `bolsa-media-libra.png`, 300 × 411 px, a la misma escala) para que cada ficha muestre su propio tamaño. Cuando haya fotos reales, conviene comprimirlas, por ejemplo en WebP, e indicar `width` y `height`.
 - **Recordatorio de recompra a 25 días:** en el sitio solo hay una casilla de preferencia. El envío real lo haría la herramienta de correo.
 - **Revisión de accesibilidad con lector de pantalla:** solo se revisaron el teclado, las etiquetas y el contraste de forma manual.

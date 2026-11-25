@@ -25,6 +25,10 @@
 // Número de WhatsApp de la tienda: ÚNICO lugar donde se escribe.
 // Formato: código de país + número, sin espacios ni signos. Ejemplo: "573001234567".
 const WHATSAPP_NUMERO = "[POR CONFIRMAR]";
+// Enlace de contacto de WhatsApp (código QR). Se usa mientras no haya número.
+// Este tipo de enlace abre el chat, pero no permite dejar el mensaje escrito:
+// por eso el sitio copia el pedido al portapapeles para pegarlo en el chat.
+const WHATSAPP_ENLACE = "https://wa.me/qr/WHMEFG4CETLZN1";
 
 // ID del video publicitario de YouTube (40-50 s). Es lo que va después de "watch?v=".
 // Ejemplo: para https://www.youtube.com/watch?v=abcdefghijk el ID es "abcdefghijk".
@@ -96,11 +100,31 @@ const ESLOGAN = "De nuestras raíces a tu taza";
 
   // Enlace de WhatsApp. Mientras el número no esté confirmado, wa.me abre WhatsApp
   // para que la persona elija el contacto (el mensaje igual queda escrito).
+  const NUMERO_WHATSAPP_LISTO = String(WHATSAPP_NUMERO).replace(/\D/g, "").length >= 10;
   function enlaceWhatsApp(texto) {
     const numero = String(WHATSAPP_NUMERO).replace(/\D/g, "");
-    const base = numero.length >= 10 ? `https://wa.me/${numero}` : "https://wa.me/";
-    return texto ? `${base}?text=${encodeURIComponent(texto)}` : base;
+    if (NUMERO_WHATSAPP_LISTO) return texto ? `https://wa.me/${numero}?text=${encodeURIComponent(texto)}` : `https://wa.me/${numero}`;
+    // Sin número: enlace de contacto; el mensaje viaja en el fragmento para copiarlo al hacer clic.
+    if (WHATSAPP_ENLACE) return texto ? `${WHATSAPP_ENLACE}#mensaje=${encodeURIComponent(texto)}` : WHATSAPP_ENLACE;
+    return texto ? `https://wa.me/?text=${encodeURIComponent(texto)}` : "https://wa.me/";
   }
+
+  // Con el enlace de contacto, al hacer clic se copia el mensaje para pegarlo en el chat.
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a || !WHATSAPP_ENLACE || !a.href.startsWith(WHATSAPP_ENLACE + "#mensaje=")) return;
+    const texto = decodeURIComponent(a.href.split("#mensaje=")[1] || "");
+    if (!texto) return;
+    const listo = () => avisar("Copiamos tu mensaje: pégalo en el chat de WhatsApp y envíalo.");
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(listo, () => {});
+      else {
+        const t = document.createElement("textarea"); t.value = texto; t.setAttribute("readonly", "");
+        t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
+        document.execCommand("copy"); t.remove(); listo();
+      }
+    } catch (err) { /* si no se puede copiar, el chat abre igual */ }
+  });
 
   // Aviso flotante dentro de la página (reemplaza alert()).
   let temporizadorAviso;
@@ -202,7 +226,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     return `
       <p><strong>${marcar(VENDEDOR.razonSocial)}</strong> · NIT ${marcar(VENDEDOR.nit)}</p>
       <p>${marcar(VENDEDOR.direccion)} · ${esc(VENDEDOR.ciudad)}</p>
-      <p>Teléfono: ${marcar(VENDEDOR.telefono)} · WhatsApp: ${marcar(WHATSAPP_NUMERO)} · Correo: ${marcar(VENDEDOR.correo)}</p>`;
+      <p>Teléfono: ${marcar(VENDEDOR.telefono)} · WhatsApp: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : `<a href="${WHATSAPP_ENLACE}" target="_blank" rel="noopener">escríbenos aquí</a>`} · Correo: ${marcar(VENDEDOR.correo)}</p>`;
   }
 
   function insertarPie() {
@@ -810,7 +834,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
                 <button class="boton boton-primario" type="submit">Agregar al carrito</button>
                 <a class="boton boton-whatsapp" id="pedir-whatsapp" href="#" target="_blank" rel="noopener">${ICONOS.whatsapp.replace('aria-hidden="true"', 'aria-hidden="true" width="20" height="20"')} Pedir por WhatsApp</a>
               </div>
-              <p class="pequeno suave" style="margin:0">Se abre WhatsApp con este mensaje: <em id="texto-whatsapp"></em><br>Número de la tienda: <span class="pendiente">${esc(WHATSAPP_NUMERO)}</span></p>
+              <p class="pequeno suave" style="margin:0">${NUMERO_WHATSAPP_LISTO ? "Se abre WhatsApp con este mensaje" : "Se abre nuestro chat de WhatsApp y copiamos este mensaje para que lo pegues"}: <em id="texto-whatsapp"></em></p>
             </form>
             <ul class="chips medios-pago" aria-label="Medios de pago">${CATALOGO.mediosPago.map((m) => `<li class="chip">${esc(m.nombre)}</li>`).join("")}</ul>
             <div>
@@ -1162,7 +1186,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         <h3>Pago</h3>
         <p>${esc(medio ? medio.nombre : "")}</p>
         <div class="info-vendedor" style="margin-bottom:16px"><p><strong>Vendedor</strong> (Ley 1480 de 2011, art. 50)</p>${htmlVendedor()}</div>
-        <p class="pequeno suave">Al confirmar se abre WhatsApp con tu pedido ya escrito. Tienes derecho de retracto dentro de los 5 días hábiles siguientes a la entrega.</p>
+        <p class="pequeno suave">${NUMERO_WHATSAPP_LISTO ? "Al confirmar se abre WhatsApp con tu pedido ya escrito." : "Al confirmar se abre nuestro chat de WhatsApp y tu pedido queda copiado: solo pégalo en el chat y envíalo."} Tienes derecho de retracto dentro de los 5 días hábiles siguientes a la entrega.</p>
         <div class="grupo-botones">
           <a class="boton boton-whatsapp" id="confirmar-pedido" href="${enlaceWhatsApp(mensajePedido(lineas))}" target="_blank" rel="noopener">Confirmar pedido por WhatsApp</a>
           <button class="boton boton-secundario" type="button" data-ir="3">Volver</button>

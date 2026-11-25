@@ -41,14 +41,17 @@ const YOUTUBE_VIDEO_RECETA_ID = "[POR CONFIRMAR]";
 const VIDEO_PUBLICITARIO_LOCAL = { archivo: "video/video-publicitario.mp4", portada: "img/poster-video.jpg" };
 
 // Información del vendedor exigida por el art. 50 de la Ley 1480 de 2011.
+// Datos de referencia para el proyecto académico: la razón social, el NIT y la
+// dirección NO son reales. Reemplazarlos cuando la empresa se formalice.
 const VENDEDOR = {
-  razonSocial: "[POR CONFIRMAR razón social]",
-  nit: "[POR CONFIRMAR NIT]",
-  direccion: "[POR CONFIRMAR dirección]",
+  razonSocial: "Café Raíces de Colombia S.A.S. (razón social de referencia, proyecto académico)",
+  nit: "000.000.000-0 (ficticio, proyecto académico)",
+  direccion: "Km 5 vía Popayán – El Tambo, zona rural de Popayán (dirección de referencia, proyecto académico)",
   ciudad: "Popayán, Cauca, Colombia",
-  telefono: "[POR CONFIRMAR teléfono]",
+  telefono: "WhatsApp",
   correo: "[POR CONFIRMAR correo]",
-  horario: "[POR CONFIRMAR horario de atención]"
+  horario: "8:00 a. m. a 5:00 p. m.",
+  recogida: "Puedes recoger tu pedido en la planta, en horario de atención, coordinándolo antes por WhatsApp."
 };
 
 // Redes sociales (Entrega 2, tabla 10.3). Reemplazar "#" por la URL real.
@@ -226,7 +229,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     return `
       <p><strong>${marcar(VENDEDOR.razonSocial)}</strong> · NIT ${marcar(VENDEDOR.nit)}</p>
       <p>${marcar(VENDEDOR.direccion)} · ${esc(VENDEDOR.ciudad)}</p>
-      <p>Teléfono: ${marcar(VENDEDOR.telefono)} · WhatsApp: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : `<a href="${WHATSAPP_ENLACE}" target="_blank" rel="noopener">escríbenos aquí</a>`} · Correo: ${marcar(VENDEDOR.correo)}</p>`;
+      <p>Teléfono: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : "por WhatsApp"} · WhatsApp: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : `<a href="${WHATSAPP_ENLACE}" target="_blank" rel="noopener">escríbenos aquí</a>`} · Correo: ${marcar(VENDEDOR.correo)}</p>`;
   }
 
   function insertarPie() {
@@ -1112,6 +1115,14 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       return `<section class="tarjeta"><h2>3. Envío</h2>
         <p class="suave">Despachamos desde Popayán con una transportadora nacional. Recibes el número de guía por correo y WhatsApp.</p>
         <form id="form-paso" class="formulario" novalidate>
+          <fieldset class="campo">
+            <legend>¿Cómo quieres recibir tu pedido?</legend>
+            <div style="display:grid;gap:10px">
+              <label class="medio-pago"><input type="radio" name="entrega" value="domicilio" ${datos.entrega !== "recoger" ? "checked" : ""}><span><strong>Envío a domicilio</strong><br><span class="pequeno suave">Te lo llevamos con una transportadora.</span></span></label>
+              <label class="medio-pago"><input type="radio" name="entrega" value="recoger" ${datos.entrega === "recoger" ? "checked" : ""}><span><strong>Recoger en la planta (sin costo de envío)</strong><br><span class="pequeno suave">${esc(VENDEDOR.direccion)} · ${esc(VENDEDOR.horario)}</span></span></label>
+            </div>
+          </fieldset>
+          <div id="campos-domicilio"${datos.entrega === "recoger" ? " hidden" : ""}>
           <div class="fila-campos">
             ${campo("ciudad", "Ciudad o municipio", "text", 'required autocomplete="address-level2"')}
             ${campo("barrio", "Barrio", "text", 'required')}
@@ -1119,6 +1130,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           ${campo("direccion", "Dirección", "text", 'required autocomplete="street-address"', "Ej.: Calle 10 # 5-20, apto 301.")}
           <div class="campo"><label for="indicaciones">Indicaciones para la entrega (opcional)</label><textarea id="indicaciones" name="indicaciones" maxlength="200">${esc(datos.indicaciones || "")}</textarea></div>
           <div class="info-vendedor"><p><strong>Costo de envío:</strong> ${marcar(CATALOGO.envio.texto)}</p><p><strong>Tiempo de entrega:</strong> ${marcar(CATALOGO.envio.tiempos)}</p></div>
+          </div>
           <div class="grupo-botones"><button class="boton boton-primario" type="submit">Continuar con el pago</button><button class="boton boton-secundario" type="button" data-ir="1">Volver</button></div>
         </form></section>`;
     }
@@ -1157,14 +1169,15 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         ...renglones,
         `Subtotal: ${precio(t.subtotal)}`,
         t.codigo ? `Descuento ${t.codigo}: −${precio(t.descuento)}` : null,
-        `Envío: ${t.envio === null ? "por confirmar" : precio(t.envio)}`,
-        `Total: ${precio(t.total)}${t.envio === null ? " + envío" : ""}`,
+        datos.entrega === "recoger" ? "Envío: no aplica (recojo en la planta)" : `Envío: ${t.envio === null ? "por confirmar" : precio(t.envio)}`,
+        `Total: ${precio(t.total)}${t.envio === null && datos.entrega !== "recoger" ? " + envío" : ""}`,
         "",
         `Nombre: ${datos.nombre}`,
         `Celular: ${datos.celular}`,
         `Correo: ${datos.correo}`,
-        `Ciudad: ${datos.ciudad}`,
-        `Dirección: ${datos.direccion}, barrio ${datos.barrio}`,
+        ...(datos.entrega === "recoger"
+          ? ["Entrega: recojo el pedido en la planta"]
+          : [`Ciudad: ${datos.ciudad}`, `Dirección: ${datos.direccion}, barrio ${datos.barrio}`]),
         datos.indicaciones ? `Indicaciones: ${datos.indicaciones}` : null,
         `Medio de pago: ${medio ? medio.nombre : ""}`
       ].filter((x) => x !== null).join("\n");
@@ -1182,7 +1195,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         <h3>Productos</h3>
         <ul>${lineas.map((l) => { const p = CATALOGO.buscar(l.id); return `<li>${l.cantidad} × ${esc(p.nombre)} (${esc(p.peso)}) · ${esc(CATALOGO.molienda(l.molienda).nombre)} · ${precio(p.precio * l.cantidad)}</li>`; }).join("")}</ul>
         <h3>Entrega</h3>
-        <p>${esc(datos.nombre)} · ${esc(datos.celular)} · ${esc(datos.correo)}<br>${esc(datos.direccion)}, barrio ${esc(datos.barrio)}, ${esc(datos.ciudad)}${datos.indicaciones ? "<br>" + esc(datos.indicaciones) : ""}</p>
+        <p>${esc(datos.nombre)} · ${esc(datos.celular)} · ${esc(datos.correo)}<br>${datos.entrega === "recoger" ? `Recoges en la planta: ${esc(VENDEDOR.direccion)} · ${esc(VENDEDOR.horario)}` : `${esc(datos.direccion)}, barrio ${esc(datos.barrio)}, ${esc(datos.ciudad)}${datos.indicaciones ? "<br>" + esc(datos.indicaciones) : ""}`}</p>
         <h3>Pago</h3>
         <p>${esc(medio ? medio.nombre : "")}</p>
         <div class="info-vendedor" style="margin-bottom:16px"><p><strong>Vendedor</strong> (Ley 1480 de 2011, art. 50)</p>${htmlVendedor()}</div>
@@ -1228,6 +1241,16 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       const fp = $("#form-paso", raiz);
       if (fp) {
         fp.addEventListener("input", (e) => { if (e.target.getAttribute("aria-invalid")) limpiarError(e.target); });
+        const camposDom = $("#campos-domicilio", fp);
+        if (camposDom) {
+          const ajustar = () => {
+            const recoger = fp.elements.entrega && fp.elements.entrega.value === "recoger";
+            camposDom.hidden = recoger;
+            $$("input, textarea", camposDom).forEach((c) => { c.disabled = recoger; });
+          };
+          fp.addEventListener("change", (e) => { if (e.target.name === "entrega") ajustar(); });
+          ajustar();
+        }
         fp.addEventListener("submit", (e) => {
           e.preventDefault();
           if (!validarFormulario(fp)) return;

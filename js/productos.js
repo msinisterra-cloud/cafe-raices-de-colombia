@@ -81,8 +81,9 @@ var CATALOGO = {
      familia productora, para fechas especiales" con precio "según la combinación".
      La composición y el precio de cada kit están POR CONFIRMAR: no se inventan. */
   kits: [
-    { id: "kit-1", nombre: "Kit [POR CONFIRMAR nombre]", contenido: "[POR CONFIRMAR composición]", precio: null },
-    { id: "kit-2", nombre: "Kit [POR CONFIRMAR nombre]", contenido: "[POR CONFIRMAR composición]", precio: null }
+    { id: "kit-1", nombre: "Kit Detalle", contenido: "2 bolsas de ½ libra (una en grano y una molida) + tarjeta de la familia", precio: 36000 },
+    { id: "kit-2", nombre: "Kit Hogar", contenido: "1 bolsa de 1 libra + 1 bolsa de ½ libra + tarjeta de la familia", precio: 51000 },
+    { id: "kit-3", nombre: "Kit Gran Familia", contenido: "1 bolsa de 1 kilo + 1 bolsa de 1 libra + tarjeta de la familia", precio: 93000 }
   ],
 
   /* --- Envío e impuestos ---

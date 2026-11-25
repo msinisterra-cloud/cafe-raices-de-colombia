@@ -110,7 +110,10 @@ ul, ol { padding-left: 1.25rem; }
 /* ---------- 4. Encabezado ---------- */
 .encabezado { position: sticky; top: 0; z-index: 50; background: var(--superficie); border-bottom: 1px solid var(--linea); }
 .encabezado .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
-.logo img { width: 168px; height: auto; }
+.logo img { width: 190px; height: auto; }
+.ilustracion { margin: 0; }
+.ilustracion img { width: 100%; height: auto; border-radius: var(--radio); display: block; }
+.ilustracion figcaption { font-size: .8rem; color: var(--texto-suave, #6B5A4C); margin-top: 6px; }
 .nav-principal { display: none; }
 .nav-principal ul { list-style: none; margin: 0; padding: 0; }
 .nav-principal a { text-decoration: none; color: var(--texto); font-weight: 500; font-size: .95rem; }

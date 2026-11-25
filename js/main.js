@@ -39,6 +39,7 @@ const YOUTUBE_VIDEO_RECETA_ID = "[POR CONFIRMAR]";
 // Copia del video publicitario alojada en el propio sitio. Se usa mientras no
 // esté el ID de YouTube; cuando se pegue el ID arriba, el sitio muestra YouTube.
 const VIDEO_PUBLICITARIO_LOCAL = { archivo: "video/video-publicitario.mp4", portada: "img/poster-video.jpg" };
+const VIDEO_RECETA_LOCAL = { archivo: "video/video-receta.mp4", portada: "img/poster-receta.jpg" };
 
 // Información del vendedor exigida por el art. 50 de la Ley 1480 de 2011.
 // Datos de referencia para el proyecto académico: la razón social, el NIT y la
@@ -186,7 +187,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     header.innerHTML = `
       <div class="contenedor">
         <a class="logo" href="index.html" aria-label="Café Raíces de Colombia, ir al inicio">
-          <img src="img/logo.svg" alt="Café Raíces de Colombia" width="168" height="34">
+          <img src="img/logo.svg" alt="Café Raíces de Colombia" width="190" height="41">
         </a>
         <nav class="nav-principal" id="nav-principal" aria-label="Menú principal"><ul>${enlaces}</ul></nav>
         <div class="acciones-encabezado">
@@ -638,7 +639,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
   function insertarVideos() {
     const VIDEOS = {
       publicitario: { id: YOUTUBE_VIDEO_ID, local: VIDEO_PUBLICITARIO_LOCAL, titulo: "Video publicitario de Café Raíces de Colombia", pendiente: "Video publicitario (40-50 s) — enlace por confirmar" },
-      receta: { id: YOUTUBE_VIDEO_RECETA_ID, titulo: "Cómo preparar café colado sin cafetera", pendiente: "Video corto «café colado en 3 pasos» — enlace por confirmar" }
+      receta: { id: YOUTUBE_VIDEO_RECETA_ID, local: VIDEO_RECETA_LOCAL, titulo: "Cómo preparar café colado sin cafetera", pendiente: "Video corto «café colado en 3 pasos» — enlace por confirmar" }
     };
     $$("[data-video]").forEach((caja) => {
       const v = VIDEOS[caja.dataset.video];

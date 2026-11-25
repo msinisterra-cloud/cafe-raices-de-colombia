@@ -136,3 +136,10 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 - **Pendiente:** publicar el video en YouTube (lo exige el enunciado, punto 2.4) y pegar su ID en `YOUTUBE_VIDEO_ID` de `js/main.js`. Con el ID, el sitio cambia solo del archivo local al reproductor de YouTube.
 - Sigue pendiente el video de receta (`YOUTUBE_VIDEO_RECETA_ID`).
 - **Datos del vendedor (24 nov.).** Por indicación del equipo, para el proyecto académico se usan datos de referencia, marcados como tales en el sitio: razón social «Café Raíces de Colombia S.A.S.», NIT 000.000.000-0 (ficticio) y dirección «Km 5 vía Popayán – El Tambo, zona rural de Popayán» (mapa con coordenadas 2.4583, -76.6573). Teléfono: por WhatsApp. Horario: 8:00 a. m. a 5:00 p. m. La planta permite recoger pedidos: el checkout tiene la opción «Recoger en la planta (sin costo de envío)». Falta el correo de la tienda.
+- **Piezas de la fase 2 (25 nov.).** Hechas con Claude Code (Hyperframes) y optimizadas en WebP:
+  - Logo tipo sello en el encabezado (`img/logo.svg`, `img/logo-sello.svg` y `.png`), favicon y `apple-touch-icon`.
+  - Ilustraciones en `img/ilustraciones/`: imagen principal del inicio, finca (inicio y origen), recorrido del café (origen), flujo logístico (logística), cómo comprar (ayuda) y banner del Club Raíces.
+  - Kits propuestos (pendiente de aprobación del equipo): Kit Detalle $36.000, Kit Hogar $51.000 y Kit Gran Familia $93.000; el precio es la suma de los productos.
+  - Video de receta «Café colado en olla, en 3 pasos» (22 s) en `video/video-receta.mp4`.
+  - Imagen para compartir `img/og-cafe-raices.jpg` y `og:url` absolutos en todas las páginas.
+  - Siguen pendientes las fotos reales (equipo, inicios, bolsa abierta y preparación) y la infografía final.

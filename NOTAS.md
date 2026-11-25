@@ -143,3 +143,13 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
   - Video de receta «Café colado en olla, en 3 pasos» (22 s) en `video/video-receta.mp4`.
   - Imagen para compartir `img/og-cafe-raices.jpg` y `og:url` absolutos en todas las páginas.
   - Siguen pendientes las fotos reales (equipo, inicios, bolsa abierta y preparación) y la infografía final.
+
+### 25-11-2026 · Contenido complementario cargado
+- Historia y mensaje de marca en Nosotros (la misión y la visión se mantienen como en la Entrega 2).
+- Kits rehechos: Detalle ($18.000), Hogar ($36.000) y Gran Familia ($93.000), con imágenes nuevas (`kit-detalle`, `kit-hogar`, `kit-gran-familia`.webp).
+- Ficha técnica y perfil sensorial de referencia en la página de producto.
+- Trazabilidad: `origen.html?lote=LRC-POP-001` a `003` (lotes de ejemplo, ficticios).
+- Proporciones de greca, goteo y prensa francesa en Preparar.
+- Envío por departamento en el checkout: Cauca $8.000, Valle $10.000, resto $14.000, gratis desde $150.000; recoger en planta sin costo.
+- BIENVENIDA10 (1 por cliente, 30 días, no acumulable), IVA incluido (por validar con contador), devoluciones en 48 h, retracto según art. 47 Ley 1480, garantía, vida útil (6 meses cerrado; 4–6 semanas abierto). Políticas actualizadas al 25-11-2026.
+- Siguen pendientes: correo de la tienda, enlaces de redes y YouTube, fotos reales, nombres de las familias aliadas.

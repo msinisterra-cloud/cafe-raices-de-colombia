@@ -510,12 +510,18 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     unidades() { return Carrito.leer().reduce((s, l) => s + l.cantidad, 0); },
     subtotal() { return Carrito.leer().reduce((s, l) => s + CATALOGO.buscar(l.id).precio * l.cantidad, 0); },
     // Totales con cupón y envío. El envío queda null mientras no haya tarifa confirmada.
-    totales() {
+    // destino (opcional): { entrega: "domicilio" | "recoger", departamento: "cauca" | "valle" | "otro" }
+    totales(destino) {
       const subtotal = Carrito.subtotal();
       const codigo = almacen.leer("cupon", null);
       const cupon = codigo ? CATALOGO.promociones.cupones[codigo] : null;
       const descuento = cupon ? Math.round(subtotal * cupon.descuento) : 0;
-      const envio = typeof CATALOGO.envio.costo === "number" ? CATALOGO.envio.costo : null;
+      const e = CATALOGO.envio;
+      let envio = typeof e.costo === "number" ? e.costo : null;
+      if (destino && destino.entrega === "recoger") envio = 0;
+      else if (destino && e.tarifas && e.tarifas[destino.departamento] != null) {
+        envio = (subtotal - descuento) >= e.gratisDesde ? 0 : e.tarifas[destino.departamento];
+      }
       return { subtotal, codigo: cupon ? codigo : null, descuento, envio, total: subtotal - descuento + (envio || 0) };
     }
   };
@@ -852,17 +858,21 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           <div class="dos-columnas">
             <div>
               <h2 id="t-origen">Origen de este lote</h2>
-              <p class="suave">Cada lote indica finca, familia, proceso y fecha de tueste. Ningún pedido sale con más de 15 días de tostado.</p>
+              <p class="suave">Cada bolsa trae su código de lote y su fecha de tostión. Ningún pedido sale con más de 15 días de tostado.</p>
               <dl class="datos-origen">
                 <div><dt>Región</dt><dd>${esc(o.region)}</dd></div>
                 <div><dt>Tipo</dt><dd>${esc(o.tipo)}</dd></div>
-                <div><dt>Finca</dt><dd>${marcar(o.finca)}</dd></div>
-                <div><dt>Familia</dt><dd>${marcar(o.familia)}</dd></div>
-                <div><dt>Variedad</dt><dd>${marcar(o.variedad)}</dd></div>
-                <div><dt>Proceso</dt><dd>${marcar(o.proceso)}</dd></div>
-                <div><dt>Notas de cata</dt><dd>${marcar(o.notasCata)}</dd></div>
-                <div><dt>Fecha de tostado</dt><dd>${marcar(o.fechaTostado)}</dd></div>
+                <div><dt>Altitud</dt><dd>${esc(o.altitud)}</dd></div>
+                <div><dt>Variedad</dt><dd>${esc(o.variedad)}</dd></div>
+                <div><dt>Proceso</dt><dd>${esc(o.proceso)}</dd></div>
+                <div><dt>Tostión</dt><dd>${esc(o.tostion)}</dd></div>
+                <div><dt>Notas de cata</dt><dd>${esc(o.notasCata)}</dd></div>
+                <div><dt>Aroma</dt><dd>${esc(o.perfil.aroma)}</dd></div>
+                <div><dt>Acidez y cuerpo</dt><dd>Acidez ${esc(o.perfil.acidez.toLowerCase())}, cuerpo ${esc(o.perfil.cuerpo.toLowerCase())}</dd></div>
+                <div><dt>Final</dt><dd>${esc(o.perfil.final)}</dd></div>
+                <div><dt>Fecha de tostado</dt><dd>${esc(o.fechaTostado)}</dd></div>
               </dl>
+              <p class="pequeno suave" style="margin-top:8px">Perfil sensorial de referencia (propuesta académica).</p>
               <p style="margin-top:16px"><a href="origen.html">Conoce a las familias y el recorrido del café →</a></p>
             </div>
             <div>
@@ -883,7 +893,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           <div class="acordeon">
             <details><summary>¿Cuánto cuesta el envío?</summary><div class="respuesta"><p>Depende de tu ciudad y dirección. ${marcar(CATALOGO.envio.texto)}. Mientras tanto, escríbenos por WhatsApp con tu ciudad y te confirmamos el total.</p></div></details>
             <details><summary>¿Qué medios de pago aceptan?</summary><div class="respuesta"><p>Nequi, Daviplata, PSE, tarjeta y contra entrega donde la transportadora lo permita.</p></div></details>
-            <details><summary>¿Cuánto tiempo se conserva fresco el café?</summary><div class="respuesta"><p>Sin abrir, se conserva fresco <span class="pendiente">[POR CONFIRMAR tiempo]</span> en su bolsa. Cuando la abras, guárdalo en un frasco oscuro y hermético, lejos del sol.</p></div></details>
+            <details><summary>¿Cuánto tiempo se conserva fresco el café?</summary><div class="respuesta"><p>Cerrado, su vida útil de referencia es de 6 meses en un lugar fresco, seco y protegido de la luz. Una vez abierto, disfrútalo dentro de las siguientes 4 a 6 semanas y guárdalo bien cerrado, en un frasco oscuro y hermético.</p></div></details>
             <details><summary>¿Molido o en grano?</summary><div class="respuesta"><p>Si no tienes molino, pídelo molido. Si tienes molino en casa, en grano: lo mueles justo antes de prepararlo.</p></div></details>
             <details><summary>¿Cómo hago mi primer pedido?</summary><div class="respuesta"><p>Agrégalo al carrito y sigue los pasos, o escribe al WhatsApp de Café Raíces con tu nombre, la presentación y si lo quieres molido o en grano. Te confirmamos disponibilidad, el total con envío y el medio de pago.</p></div></details>
           </div>
@@ -1023,14 +1033,14 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     let paso = 0;
 
     function resumenHTML() {
-      const t = Carrito.totales();
+      const t = Carrito.totales(datos);
       return `
         <aside class="tarjeta resumen" aria-label="Resumen del pedido">
           <h2 style="font-size:1.3rem">Resumen del pedido</h2>
           <dl>
             <dt>Subtotal (${Carrito.unidades()} ${Carrito.unidades() === 1 ? "producto" : "productos"})</dt><dd>${precio(t.subtotal)}</dd>
             ${t.codigo ? `<dt>Descuento ${esc(t.codigo)}</dt><dd>−${precio(t.descuento)}</dd>` : ""}
-            <dt>Envío</dt><dd>${t.envio === null ? marcar(CATALOGO.envio.texto) : precio(t.envio)}</dd>
+            <dt>Envío</dt><dd>${t.envio === null ? "Se calcula en el paso 3 según tu destino" : t.envio === 0 ? (datos.entrega === "recoger" ? "No aplica (recoges en la planta)" : "Gratis") : precio(t.envio)}</dd>
             <dt>Impuestos</dt><dd>${marcar(CATALOGO.impuestos.texto)}</dd>
             <dt class="total">Total${t.envio === null ? " (sin envío)" : ""}</dt><dd class="total">${precio(t.total)}</dd>
           </dl>
@@ -1124,6 +1134,10 @@ const ESLOGAN = "De nuestras raíces a tu taza";
             </div>
           </fieldset>
           <div id="campos-domicilio"${datos.entrega === "recoger" ? " hidden" : ""}>
+          <div class="campo"><label for="departamento">Departamento de destino</label><select id="departamento" name="departamento" required>
+            <option value="">Elige una opción</option>
+            ${CATALOGO.envio.destinos.map((d) => `<option value="${d.id}" ${datos.departamento === d.id ? "selected" : ""}>${esc(d.nombre)} · ${precio(d.tarifa)} · ${esc(d.tiempo)}</option>`).join("")}
+          </select><span class="ayuda">Envío gratis en compras desde ${precio(CATALOGO.envio.gratisDesde)}.</span></div>
           <div class="fila-campos">
             ${campo("ciudad", "Ciudad o municipio", "text", 'required autocomplete="address-level2"')}
             ${campo("barrio", "Barrio", "text", 'required')}
@@ -1159,7 +1173,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     }
 
     function mensajePedido(lineas) {
-      const t = Carrito.totales();
+      const t = Carrito.totales(datos);
       const medio = CATALOGO.mediosPago.find((m) => m.id === datos.pago);
       const renglones = lineas.map((l) => {
         const p = CATALOGO.buscar(l.id);
@@ -1170,7 +1184,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         ...renglones,
         `Subtotal: ${precio(t.subtotal)}`,
         t.codigo ? `Descuento ${t.codigo}: −${precio(t.descuento)}` : null,
-        datos.entrega === "recoger" ? "Envío: no aplica (recojo en la planta)" : `Envío: ${t.envio === null ? "por confirmar" : precio(t.envio)}`,
+        datos.entrega === "recoger" ? "Envío: no aplica (recojo en la planta)" : `Envío: ${t.envio === null ? "por confirmar" : t.envio === 0 ? "gratis" : precio(t.envio)}`,
         `Total: ${precio(t.total)}${t.envio === null && datos.entrega !== "recoger" ? " + envío" : ""}`,
         "",
         `Nombre: ${datos.nombre}`,
@@ -1247,7 +1261,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           const ajustar = () => {
             const recoger = fp.elements.entrega && fp.elements.entrega.value === "recoger";
             camposDom.hidden = recoger;
-            $$("input, textarea", camposDom).forEach((c) => { c.disabled = recoger; });
+            $$("input, textarea, select", camposDom).forEach((c) => { c.disabled = recoger; });
           };
           fp.addEventListener("change", (e) => { if (e.target.name === "entrega") ajustar(); });
           ajustar();
@@ -1257,14 +1271,14 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           if (!validarFormulario(fp)) return;
           new FormData(fp).forEach((v, k) => { if (k !== "terminos" && k !== "datos") datos[k] = String(v).trim(); });
           datos.confirmado = false;
-          almacen.guardar("checkout-datos", { nombre: datos.nombre, celular: datos.celular, correo: datos.correo, ciudad: datos.ciudad, barrio: datos.barrio, direccion: datos.direccion });
+          almacen.guardar("checkout-datos", { nombre: datos.nombre, celular: datos.celular, correo: datos.correo, departamento: datos.departamento, ciudad: datos.ciudad, barrio: datos.barrio, direccion: datos.direccion });
           irA(paso + 1);
         });
       }
       // Paso 5: al confirmar se guarda el pedido (para Mi cuenta) y se vacía el carrito
       const conf = $("#confirmar-pedido", raiz);
       if (conf) conf.addEventListener("click", () => {
-        const t = Carrito.totales();
+        const t = Carrito.totales(datos);
         const pedidos = almacen.leer("pedidos", []);
         pedidos.push({
           numero: "CR-" + Date.now().toString().slice(-6),
@@ -1430,16 +1444,23 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     const lote = parametro("lote");
     if (!caja || !lote) return;
     const o = CATALOGO.origen;
+    const codigo = lote.trim().toUpperCase();
+    const l = (CATALOGO.lotes || {})[codigo];
     caja.hidden = false;
-    caja.innerHTML = `<h3>Lote ${esc(lote)}</h3>
+    caja.innerHTML = l ? `<h3>Lote ${esc(codigo)}</h3>
+      <p>Conoce la historia de tu café. Cada lote representa una combinación de origen, variedad y proceso que influye en el aroma y sabor de tu taza.</p>
       <dl class="datos-origen">
-        <div><dt>Finca</dt><dd>${marcar(o.finca)}</dd></div>
-        <div><dt>Familia</dt><dd>${marcar(o.familia)}</dd></div>
-        <div><dt>Variedad</dt><dd>${marcar(o.variedad)}</dd></div>
-        <div><dt>Proceso</dt><dd>${marcar(o.proceso)}</dd></div>
-        <div><dt>Fecha de tostado</dt><dd>${marcar(o.fechaTostado)}</dd></div>
+        <div><dt>Región de origen</dt><dd>${esc(o.region)}</dd></div>
+        <div><dt>Variedad</dt><dd>${esc(l.variedad)}</dd></div>
+        <div><dt>Proceso de beneficio</dt><dd>${esc(l.proceso)}</dd></div>
+        <div><dt>Altitud</dt><dd>${esc(o.altitud)}</dd></div>
+        <div><dt>Perfil sensorial</dt><dd>${esc(l.perfil)}</dd></div>
+        <div><dt>Fecha de tostión</dt><dd>${esc(o.fechaTostado)}</dd></div>
       </dl>
-      <p class="pequeno suave" style="margin-top:12px">Los datos de cada lote se publicarán cuando el tostador los registre. <span class="pendiente">[POR CONFIRMAR tabla de lotes]</span></p>`;
+      <p style="margin-top:12px"><a href="preparar.html">Descubre la mejor forma de prepararlo →</a></p>
+      <p class="pequeno suave">Lote de ejemplo para demostrar la trazabilidad (proyecto académico).</p>`
+      : `<h3>No encontramos el lote ${esc(codigo)}</h3>
+      <p>Revisa el código impreso en la etiqueta e inténtalo de nuevo. Lotes de ejemplo: ${Object.keys(CATALOGO.lotes || {}).map((k) => `<a href="origen.html?lote=${k}">${k}</a>`).join(", ")}.</p>`;
     $("#lote").value = lote;
   };
 

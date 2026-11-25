@@ -130,3 +130,8 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 - **Chat:** responde con botones y, cuando no sabe, pasa a WhatsApp. No tapa el botón de WhatsApp.
 - **Mi cuenta:** muestra los pedidos y permite repetirlos. El Club Raíces se puede crear, pausar, cambiar de frecuencia y cancelar con confirmación en la página.
 - **Formulario de contacto:** muestra los mensajes de error y la confirmación en pantalla.
+
+## Actualización del 24 de noviembre de 2026
+- **Video publicitario en el sitio.** Se agregó el video final del equipo (45 s, con audio) comprimido a 1,5 MB en `video/video-publicitario.mp4`, con portada `img/poster-video.jpg`. Se muestra en el inicio, en «Nuestro origen» y en «Aprende a preparar», y solo se descarga cuando el visitante le da reproducir.
+- **Pendiente:** publicar el video en YouTube (lo exige el enunciado, punto 2.4) y pegar su ID en `YOUTUBE_VIDEO_ID` de `js/main.js`. Con el ID, el sitio cambia solo del archivo local al reproductor de YouTube.
+- Sigue pendiente el video de receta (`YOUTUBE_VIDEO_RECETA_ID`).

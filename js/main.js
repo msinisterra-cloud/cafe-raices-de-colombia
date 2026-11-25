@@ -32,6 +32,10 @@ const YOUTUBE_VIDEO_ID = "[POR CONFIRMAR]";
 // Video corto de preparación ("café colado en 3 pasos"), opcional.
 const YOUTUBE_VIDEO_RECETA_ID = "[POR CONFIRMAR]";
 
+// Copia del video publicitario alojada en el propio sitio. Se usa mientras no
+// esté el ID de YouTube; cuando se pegue el ID arriba, el sitio muestra YouTube.
+const VIDEO_PUBLICITARIO_LOCAL = { archivo: "video/video-publicitario.mp4", portada: "img/poster-video.jpg" };
+
 // Información del vendedor exigida por el art. 50 de la Ley 1480 de 2011.
 const VENDEDOR = {
   razonSocial: "[POR CONFIRMAR razón social]",
@@ -606,7 +610,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
 
   function insertarVideos() {
     const VIDEOS = {
-      publicitario: { id: YOUTUBE_VIDEO_ID, titulo: "Video publicitario de Café Raíces de Colombia", pendiente: "Video publicitario (40-50 s) — enlace por confirmar" },
+      publicitario: { id: YOUTUBE_VIDEO_ID, local: VIDEO_PUBLICITARIO_LOCAL, titulo: "Video publicitario de Café Raíces de Colombia", pendiente: "Video publicitario (40-50 s) — enlace por confirmar" },
       receta: { id: YOUTUBE_VIDEO_RECETA_ID, titulo: "Cómo preparar café colado sin cafetera", pendiente: "Video corto «café colado en 3 pasos» — enlace por confirmar" }
     };
     $$("[data-video]").forEach((caja) => {
@@ -614,6 +618,9 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       if (!v) return;
       if (/^[\w-]{11}$/.test(v.id)) {
         caja.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${v.id}" title="${esc(v.titulo)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+      } else if (v.local) {
+        // preload="none": el video solo se descarga cuando el visitante le da reproducir
+        caja.innerHTML = `<video controls preload="none" playsinline poster="${v.local.portada}" title="${esc(v.titulo)}"><source src="${v.local.archivo}" type="video/mp4">Tu navegador no puede reproducir este video.</video>`;
       } else {
         caja.innerHTML = `<div class="video-pendiente"><div><div class="icono-play" aria-hidden="true">▶</div><p><strong>${esc(v.pendiente)}</strong></p><p><span class="pendiente">[POR CONFIRMAR ID de YouTube]</span></p></div></div>`;
       }

@@ -50,7 +50,7 @@ const VENDEDOR = {
   direccion: "Km 5 vía Popayán – El Tambo, zona rural de Popayán (dirección de referencia, proyecto académico)",
   ciudad: "Popayán, Cauca, Colombia",
   telefono: "WhatsApp",
-  correo: "[POR CONFIRMAR correo]",
+  correo: "moliendacaferaicesdecolombia@gmail.com",
   horario: "8:00 a. m. a 5:00 p. m.",
   recogida: "Puedes recoger tu pedido en la planta, en horario de atención, coordinándolo antes por WhatsApp."
 };
@@ -229,7 +229,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     return `
       <p><strong>${marcar(VENDEDOR.razonSocial)}</strong> · NIT ${marcar(VENDEDOR.nit)}</p>
       <p>${marcar(VENDEDOR.direccion)} · ${esc(VENDEDOR.ciudad)}</p>
-      <p>Teléfono: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : "por WhatsApp"} · WhatsApp: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : `<a href="${WHATSAPP_ENLACE}" target="_blank" rel="noopener">escríbenos aquí</a>`} · Correo: ${marcar(VENDEDOR.correo)}</p>`;
+      <p>Teléfono: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : "por WhatsApp"} · WhatsApp: ${NUMERO_WHATSAPP_LISTO ? esc(WHATSAPP_NUMERO) : `<a href="${WHATSAPP_ENLACE}" target="_blank" rel="noopener">escríbenos aquí</a>`} · Correo: ${`<a href="mailto:${esc(VENDEDOR.correo)}">${esc(VENDEDOR.correo)}</a>`}</p>`;
   }
 
   function insertarPie() {

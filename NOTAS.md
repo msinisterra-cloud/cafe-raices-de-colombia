@@ -156,3 +156,6 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 
 ### 25-11-2026 · Redes sociales
 - Enlaces oficiales de Facebook, Instagram (@cafe_raices_de_colombia) y YouTube (@caferaicesdecolombia) en el pie de página, Ayuda y Preparar; QR de Instagram en Ayuda. TikTok se retiró del pie hasta que exista la cuenta.
+
+### 25-11-2026 · Correo de la tienda
+- moliendacaferaicesdecolombia@gmail.com como enlace mailto en el pie de página, Ayuda y Términos (incluido el correo para temas de datos).

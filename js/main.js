@@ -231,10 +231,14 @@ const ESLOGAN = "De nuestras raíces a tu taza";
 
   /* ---------- 4. Pie de página ---------- */
 
+  // Íconos cuadrados de cada red (los colores son los de cada marca)
+  const ICONOS_REDES = {
+    Facebook: '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#1877F2"/><path d="M27.6 40V25.3h4.9l.7-5.7h-5.6V16c0-1.6.5-2.8 2.8-2.8h3V8.2c-.5-.1-2.3-.2-4.4-.2-4.3 0-7.3 2.6-7.3 7.5v4.2h-4.9v5.7h4.9V40z" fill="#fff"/></svg>',
+    Instagram: '<svg viewBox="0 0 40 40" aria-hidden="true"><defs><radialGradient id="ig-degradado" cx="0.3" cy="1.07" r="1.2"><stop offset="0" stop-color="#FFD776"/><stop offset=".1" stop-color="#F3A554"/><stop offset=".5" stop-color="#F15C3C"/><stop offset=".7" stop-color="#D92D77"/><stop offset="1" stop-color="#7F3CC8"/></radialGradient></defs><rect width="40" height="40" rx="9" fill="url(#ig-degradado)"/><rect x="9" y="9" width="22" height="22" rx="6.5" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="20" cy="20" r="5.4" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="26.6" cy="13.4" r="1.6" fill="#fff"/></svg>',
+    YouTube: '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#FF0000"/><path d="M16 13.5v13l11.2-6.5z" fill="#fff"/></svg>'
+  };
   function htmlRedes() {
-    return REDES.map((r) => r.pendiente
-      ? `<a href="${r.url}" aria-label="${r.nombre} (enlace por confirmar)">${r.nombre} <span class="pendiente">[POR CONFIRMAR]</span></a>`
-      : `<a href="${r.url}" target="_blank" rel="noopener">${r.nombre}</a>`).join("");
+    return REDES.map((r) => `<a class="red-icono" href="${r.url}" target="_blank" rel="noopener" aria-label="${r.nombre} de Café Raíces (se abre en otra pestaña)" title="${r.nombre}">${ICONOS_REDES[r.nombre] || r.nombre}</a>`).join("");
   }
 
   function htmlVendedor() {
@@ -302,54 +306,213 @@ const ESLOGAN = "De nuestras raíces a tu taza";
 
   /* ---------- 5. Botón de WhatsApp y chat con respuestas automáticas ---------- */
 
-  // Respuestas del chat. Cada una puede llevar un enlace a la página con más detalle.
+  // Banco de respuestas del chat. Cada tema tiene:
+  //   pregunta: texto del botón · palabras: expresión regular (sin tildes, en minúsculas)
+  //   texto: respuesta · enlace / whatsapp: acción opcional · rapido: aparece como botón al abrir.
+  // El orden importa: los temas más específicos van primero. Todas las respuestas salen
+  // del contenido del sitio (Ayuda, Logística, Club, Tienda y Kits); no agregar datos sin validar.
   const RESPUESTAS = {
-    envios: {
-      pregunta: "Envíos",
-      texto: `Despachamos desde nuestra planta en Popayán con una transportadora nacional. Recibes el número de guía por correo y WhatsApp para seguir tu pedido. Tarifas: ${CATALOGO.envio.texto}. Tiempos: ${CATALOGO.envio.tiempos}.`,
-      enlace: { href: "logistica.html", texto: "Ver cómo enviamos" }
+    saludo: {
+      pregunta: "Hola",
+      palabras: /^(hola|buen[oa]s?|buenas (tardes|noches|dias)|hey|que tal|saludos)\b/,
+      texto: "¡Hola! Qué bueno tenerte por aquí. Pregúntame por precios, envíos, pagos, cómo preparar el café o el Club Raíces."
+    },
+    gracias: {
+      pregunta: "Gracias",
+      palabras: /\b(gracias|muchas gracias|te agradezco|listo|perfecto|chevere|genial)\b/,
+      texto: "¡Con gusto! Si necesitas algo más, aquí estoy. De nuestras raíces a tu taza ☕"
+    },
+    pagoLinea: {
+      pregunta: "Pago en línea",
+      palabras: /wompi|pago en linea|pagar en linea|pasarela|pagar con tarjeta en la pagina|link de pago/,
+      texto: "En el paso 5 del carrito puedes pagar en línea con Wompi (Nequi, Daviplata, PSE o tarjeta). Por ahora está en modo de pruebas, así que no se cobra dinero real; también puedes confirmar tu pedido por WhatsApp.",
+      enlace: { href: "carrito.html", texto: "Ir al carrito" }
+    },
+    contraEntrega: {
+      pregunta: "Contra entrega",
+      palabras: /contra ?entrega|pago al recibir|pagar al recibir|efectivo/,
+      texto: `Puedes pagar contra entrega en ${CATALOGO.envio.ciudadesContraEntrega}.`,
+      enlace: { href: "ayuda.html#pagos", texto: "Ver medios de pago" }
     },
     pagos: {
-      pregunta: "Pagos",
-      texto: "Puedes pagar con Nequi, Daviplata, PSE, tarjeta o contra entrega (donde la transportadora lo permita).",
-      enlace: { href: "ayuda.html#pagos", texto: "Ver medios de pago" }
+      pregunta: "Medios de pago",
+      palabras: /pag|nequi|daviplata|pse|tarjeta|credito|debito|transferencia|consignacion/,
+      texto: "Aceptamos Nequi, Daviplata, PSE, tarjeta de crédito o débito y contra entrega (donde la transportadora lo permita).",
+      enlace: { href: "ayuda.html#pagos", texto: "Ver medios de pago" },
+      rapido: true
+    },
+    envioGratis: {
+      pregunta: "Envío gratis",
+      palabras: /envio gratis|gratis|sin costo de envio|domicilio gratis/,
+      texto: `El envío es gratis en compras desde ${precio(CATALOGO.envio.gratisDesde)}. Si recoges tu pedido en la planta, tampoco pagas envío.`,
+      enlace: { href: "logistica.html", texto: "Ver cómo enviamos" }
+    },
+    seguimiento: {
+      pregunta: "Seguir mi pedido",
+      palabras: /rastre|seguimiento|seguir (mi )?pedido|numero de guia|guia|donde (esta|va) mi pedido|no ha llegado|estado de mi pedido/,
+      texto: "Cuando despachamos tu pedido te enviamos el número de guía por correo y WhatsApp para que lo sigas en la página de la transportadora. Si tienes una duda con tu pedido, escríbenos con tu número de pedido.",
+      whatsapp: "Hola, Café Raíces. Quiero saber el estado de mi pedido número: "
+    },
+    recoger: {
+      pregunta: "Recoger en la planta",
+      palabras: /recog|planta|ubicacion|direccion|donde (estan|quedan)|el tambo|punto fisico|tienda fisica|ir por/,
+      texto: `Puedes recoger tu pedido en la planta, sin costo de envío: ${VENDEDOR.direccion}, ${VENDEDOR.ciudad}. Horario: ${VENDEDOR.horario}. Coordínalo antes por WhatsApp.`,
+      enlace: { href: "ubicacion.html", texto: "Ver el mapa" }
+    },
+    envios: {
+      pregunta: "Envíos y tiempos",
+      palabras: /envi|domicil|transport|despach|llega|demora|cuanto se demora|tiempo de entrega|ciudad|municipio|a donde/,
+      texto: `Despachamos desde Popayán a todo el país con una transportadora nacional. Tarifas: ${CATALOGO.envio.texto}. Tiempos: ${CATALOGO.envio.tiempos}.`,
+      enlace: { href: "logistica.html", texto: "Ver cómo enviamos" },
+      rapido: true
+    },
+    cupon: {
+      pregunta: "Código de descuento",
+      palabras: /^(?!.*club).*(cupon|codigo|descuento|bienvenida10|promo|oferta)/,
+      texto: `Suscríbete al boletín y recibe el código BIENVENIDA10: ${CATALOGO.promociones.cupones.BIENVENIDA10.descripcion}. ${CATALOGO.promociones.cupones.BIENVENIDA10.condiciones} Lo escribes en el paso 1 del carrito.`,
+      enlace: { href: "novedades.html", texto: "Suscribirme al boletín" }
+    },
+    cancelarClub: {
+      pregunta: "Pausar o cancelar el Club",
+      palabras: /(paus|cancel|salir|baja|retirar).*(club|suscripcion)|(club|suscripcion).*(paus|cancel|baja|retir)/,
+      texto: "Entra a Mi cuenta, sección Club Raíces, y elige «Pausar» o «Cancelar». Lo haces cuando quieras.",
+      enlace: { href: "cuenta.html", texto: "Ir a Mi cuenta" }
     },
     club: {
       pregunta: "Club Raíces",
-      texto: "Con el Club Raíces recibes tu café cada 15 o 30 días con 10 % de descuento. Lo pausas o lo cancelas desde tu cuenta cuando quieras.",
-      enlace: { href: "club.html", texto: "Conocer el Club" }
+      palabras: /club|suscrip|membres|cada 15|cada 30|cada mes|automatic/,
+      texto: "Con el Club Raíces recibes tu café cada 15 o 30 días con 10 % de descuento. Eliges presentación y molienda, y lo pausas o cancelas desde tu cuenta cuando quieras.",
+      enlace: { href: "club.html", texto: "Conocer el Club" },
+      rapido: true
+    },
+    kits: {
+      pregunta: "Kits y regalos",
+      palabras: /kit|regalo|regalar|detalle|ancheta|fecha especial|cumpleanos|navidad|amor y amistad|dia de la madre|dia del padre/,
+      texto: CATALOGO.kits.map((k) => `${k.nombre}: ${k.contenido} (${precio(k.precio)})`).join(" · ") + ".",
+      enlace: { href: "kits.html", texto: "Ver los kits" },
+      rapido: true
+    },
+    volumen: {
+      pregunta: "Ventas por volumen",
+      palabras: /por mayor|al mayor|mayorista|volumen|cafeteria|restaurante|oficina|empresa|negocio|distribuir|revender|cotiza/,
+      texto: "Tenemos precios especiales para cafeterías, tiendas y oficinas, por cotización. Escríbenos con la presentación y la cantidad que necesitas.",
+      whatsapp: "Hola, Café Raíces. Quiero una cotización por volumen para mi negocio."
+    },
+    granoMolido: {
+      pregunta: "¿Grano o molido?",
+      palabras: /grano o molido|molido o grano|grano|molid|molino|moler|molienda/,
+      texto: "Si no tienes molino, pídelo molido: está listo para olla, colador o cafetera. Si tienes molino, pídelo en grano y muélelo justo antes de preparar.",
+      enlace: { href: "quiz.html", texto: "Hacer el cuestionario Encuentra tu café" }
     },
     preparar: {
-      pregunta: "Cómo preparar",
-      texto: "No necesitas cafetera: calienta una taza de agua, agrega 2 cucharadas de café molido, deja reposar 4 minutos y cuela. Así de fácil.",
-      enlace: { href: "preparar.html", texto: "Ver recetas" }
+      pregunta: "Cómo prepararlo",
+      palabras: /prepar|cafetera|receta|olla|colad|greca|goteo|prensa|francesa|tinto|cuantas cucharadas|como se hace/,
+      texto: "No necesitas cafetera: calienta una taza de agua, agrega 2 cucharadas de café molido, deja reposar 4 minutos y cuela. También tenemos guías para greca, cafetera de goteo y prensa francesa.",
+      enlace: { href: "preparar.html", texto: "Ver recetas y videos" },
+      rapido: true
+    },
+    frescura: {
+      pregunta: "Frescura",
+      palabras: /fresc|tostad|tueste|tostion|fecha de tostado|valvula|vacio|empaque|bolsa/,
+      texto: "Tostamos por lotes según los pedidos: ningún lote sale con más de 15 días de tostado y la fecha de tueste va en la bolsa. La bolsa kraft tiene válvula unidireccional y sellado al vacío para conservar el aroma.",
+      enlace: { href: "logistica.html", texto: "Ver el empaque" }
+    },
+    conservar: {
+      pregunta: "Cómo guardarlo",
+      palabras: /guardar|conservar|vence|vencimiento|vida util|dura|caduc|nevera|congel/,
+      texto: "Cerrado, su vida útil de referencia es de 6 meses en un lugar fresco, seco y protegido de la luz. Una vez abierto, disfrútalo en las siguientes 4 a 6 semanas, bien cerrado en un frasco oscuro y hermético. La fecha de vencimiento definitiva va en la etiqueta."
+    },
+    sabor: {
+      pregunta: "Sabor y ficha técnica",
+      palabras: /sabor|\bsabe\b|nota|cata|aroma|acidez|cuerpo|variedad|proceso|altitud|altura|ficha|perfil|lote|trazabilidad/,
+      texto: `Ficha de referencia: ${CATALOGO.origen.tipo}, tostión ${CATALOGO.origen.tostion.toLowerCase()}, proceso ${CATALOGO.origen.proceso.toLowerCase()}, variedades ${CATALOGO.origen.variedad}. Notas de ${CATALOGO.origen.notasCata.toLowerCase()}.`,
+      enlace: { href: "origen.html", texto: "Ver el origen y la ficha" }
+    },
+    origen: {
+      pregunta: "Nuestro origen",
+      palabras: /origen|de donde|popayan|cauca|famili|caficultor|finca|productor|arabica|quienes son|quien(es)? (son|somos)|historia|intermediari|comercio justo/,
+      texto: "Somos Café Raíces de Colombia: café 100 % arábica cultivado por familias caficultoras de Popayán, Cauca, tostado y empacado en origen y vendido directo, sin intermediarios. Cuando compras directo, el valor de tu taza se queda en el campo.",
+      enlace: { href: "origen.html", texto: "Conocer nuestro origen" }
     },
     precios: {
       pregunta: "Precios",
+      palabras: /precio|cuanto (vale|cuesta)|valor|cuesta|tarifa de cafe|libra|kilo|media libra|presentacion|tamano|gramos/,
       texto: CATALOGO.productos.map((p) => `${p.presentacion} (${p.peso}): ${precio(p.precio)}`).join(" · ") + ". En grano o molido. El envío se suma aparte.",
+      enlace: { href: "tienda.html", texto: "Ir a la tienda" },
+      rapido: true
+    },
+    comprar: {
+      pregunta: "Cómo comprar",
+      palabras: /como (compro|comprar|pido|hago un pedido)|hacer un pedido|quiero (comprar|pedir)|carrito/,
+      texto: "Elige tu café en la tienda, agrégalo al carrito y sigue los 5 pasos: carrito, datos, envío, medio de pago y confirmación. También puedes pedir directo por WhatsApp con tu nombre, la presentación y si lo quieres molido o en grano.",
       enlace: { href: "tienda.html", texto: "Ir a la tienda" }
+    },
+    factura: {
+      pregunta: "Factura",
+      palabras: /factura|dian|iva|impuesto|rut|nit/,
+      texto: "Cada pedido va con su factura electrónica, según la normativa de la DIAN. Los precios que ves son finales, con los impuestos que correspondan incluidos; el envío se suma aparte."
+    },
+    retracto: {
+      pregunta: "Retracto",
+      palabras: /retract|arrepent|ya no lo quiero|devolver la compra/,
+      texto: "Tienes derecho de retracto dentro de los 5 días hábiles siguientes a la entrega, según el artículo 47 de la Ley 1480 de 2011.",
+      enlace: { href: "legal.html#retracto", texto: "Ver condiciones" }
     },
     devoluciones: {
       pregunta: "Devoluciones",
-      texto: "Si tu pedido llega dañado, te lo reponemos o te devolvemos el dinero. También tienes derecho de retracto dentro de los 5 días hábiles siguientes a la entrega.",
-      enlace: { href: "legal.html#devoluciones", texto: "Ver la política" }
+      palabras: /devol|cambio|reembols|da[nñ]ad|roto|mal estado|reclamo|queja|garantia|incompleto|equivocad/,
+      texto: "Si tu pedido llega dañado o no cumple lo prometido, te lo reponemos o te devolvemos el dinero sin costo. Escríbenos por WhatsApp con tu número de pedido y una foto del empaque.",
+      enlace: { href: "legal.html#devoluciones", texto: "Ver la política" },
+      whatsapp: "Hola, Café Raíces. Tuve un problema con mi pedido número: "
+    },
+    datos: {
+      pregunta: "Mis datos",
+      palabras: /datos personales|privacidad|habeas|ley 1581|borrar mis datos|mis datos/,
+      texto: "Solo usamos tus datos con tu autorización, para gestionar tus pedidos y, si lo aceptas, enviarte el boletín. Puedes conocerlos, actualizarlos o pedir que los borremos.",
+      enlace: { href: "legal.html#datos", texto: "Ver la política de datos" }
+    },
+    boletin: {
+      pregunta: "Boletín",
+      palabras: /boletin|newsletter|correos|suscribirme al correo|dejar de recibir/,
+      texto: "En el boletín te enviamos la receta del mes, historias de las familias caficultoras y la promoción vigente. Al suscribirte recibes BIENVENIDA10. Cada correo trae el enlace «Cancelar suscripción».",
+      enlace: { href: "novedades.html", texto: "Ver Novedades" }
+    },
+    cuenta: {
+      pregunta: "Mi cuenta",
+      palabras: /mi cuenta|registr|iniciar sesion|contrasena|usuario|mis pedidos|historial/,
+      texto: "En Mi cuenta ves tus pedidos y tu suscripción al Club. En esta versión del sitio todo se guarda solo en tu navegador.",
+      enlace: { href: "cuenta.html", texto: "Ir a Mi cuenta" }
+    },
+    horario: {
+      pregunta: "Horario de atención",
+      palabras: /horario|a que hora|atienden|abren|cierran|dias de atencion/,
+      texto: `Atendemos de ${VENDEDOR.horario}. Por WhatsApp respondemos en menos de 15 minutos en ese horario.`
+    },
+    redes: {
+      pregunta: "Redes sociales",
+      palabras: /redes|facebook|instagram|youtube|tiktok|siguen|seguirlos/,
+      texto: "Síguenos en " + REDES.map((r) => `<a href="${r.url}" target="_blank" rel="noopener">${r.nombre}</a>`).join(", ") + "."
+    },
+    contacto: {
+      pregunta: "Contacto",
+      palabras: /contact|correo|email|mail|telefono|celular|numero|llamar|escribir/,
+      texto: `Escríbenos por WhatsApp o al correo <a href="mailto:${VENDEDOR.correo}">${VENDEDOR.correo}</a>. Horario: ${VENDEDOR.horario}.`,
+      whatsapp: "Hola, Café Raíces. Quiero hacer una pregunta."
     },
     persona: {
       pregunta: "Hablar con una persona",
+      palabras: /persona|asesor|humano|alguien|whatsapp|hablar|ayuda/,
       texto: `Te atendemos por WhatsApp. Respondemos en menos de 15 minutos en horario de atención (${VENDEDOR.horario}).`,
-      whatsapp: "Hola, Café Raíces. Quiero hablar con una persona."
+      whatsapp: "Hola, Café Raíces. Quiero hablar con una persona.",
+      rapido: true
     }
   };
-  // Palabras clave para lo que la persona escribe en el chat
-  const PALABRAS = [
-    { clave: "envios", re: /env[ií]o|domicil|gu[ií]a|transport|lleg|demora|tiempo/i },
-    { clave: "pagos", re: /pag|nequi|daviplata|pse|tarjeta|contra ?entrega|efectivo/i },
-    { clave: "club", re: /club|suscrip|membres|cada 15|cada 30/i },
-    { clave: "preparar", re: /prepar|cafetera|receta|olla|colad|greca|molid|grano/i },
-    { clave: "precios", re: /precio|cu[aá]nto|valor|cuesta|libra|kilo/i },
-    { clave: "devoluciones", re: /devol|retract|cambio|reembols|da[ñn]ad/i },
-    { clave: "persona", re: /persona|asesor|humano|whatsapp|hablar/i }
-  ];
+  // Normaliza lo que escribe la persona: minúsculas y sin tildes
+  const normalizar = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim();
+  const buscarTema = (texto) => {
+    const t = normalizar(texto);
+    return Object.keys(RESPUESTAS).find((clave) => RESPUESTAS[clave].palabras.test(t));
+  };
 
   function insertarFlotantes() {
     // Botón flotante de WhatsApp (abajo a la derecha)
@@ -403,11 +566,11 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       const r = RESPUESTAS[clave];
       let html = marcar(r.texto);
       if (r.enlace) html += `<br><a href="${r.enlace.href}">${esc(r.enlace.texto)} →</a>`;
-      if (r.whatsapp) html += `<br><a href="${enlaceWhatsApp(r.whatsapp)}" target="_blank" rel="noopener">Abrir WhatsApp →</a>`;
+      if (r.whatsapp) html += `<br><a href="${enlaceWhatsApp(r.whatsapp)}" target="_blank" rel="noopener">Escribir por WhatsApp →</a>`;
       burbuja(html);
     }
     function pintarOpciones() {
-      opciones.innerHTML = ["envios", "pagos", "club", "preparar", "persona"]
+      opciones.innerHTML = Object.keys(RESPUESTAS).filter((c) => RESPUESTAS[c].rapido)
         .map((c) => `<button type="button" data-clave="${c}">${RESPUESTAS[c].pregunta}</button>`).join("");
     }
     function abrir() {
@@ -415,7 +578,7 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       botonChat.setAttribute("aria-expanded", "true");
       botonChat.setAttribute("aria-label", "Cerrar chat de ayuda");
       if (!iniciado) {
-        burbuja("¡Hola! 👋 Soy el asistente de Café Raíces. Elige un tema o escribe tu pregunta. Si no sé la respuesta, te paso con una persona por WhatsApp.");
+        burbuja("¡Hola! 👋 Soy el asistente de Café Raíces. Elige un tema o escribe tu pregunta con tus palabras (por ejemplo: «¿cuánto vale la libra?», «¿llegan a Cali?» o «no tengo cafetera»). Si no sé la respuesta, te paso con una persona por WhatsApp.");
         pintarOpciones();
         iniciado = true;
       }
@@ -444,9 +607,9 @@ const ESLOGAN = "De nuestras raíces a tu taza";
       if (!texto) return;
       burbuja(esc(texto), true);
       campo.value = "";
-      const encontrada = PALABRAS.find((p) => p.re.test(texto));
-      if (encontrada) {
-        responder(encontrada.clave);
+      const clave = buscarTema(texto);
+      if (clave) {
+        responder(clave);
       } else {
         // No sabe la respuesta: pasa a WhatsApp con la pregunta ya escrita
         burbuja(`No tengo esa respuesta todavía. Te paso con una persona del equipo: <br><a href="${enlaceWhatsApp("Hola, Café Raíces. Tengo esta pregunta: " + texto)}" target="_blank" rel="noopener">Continuar por WhatsApp →</a>`);

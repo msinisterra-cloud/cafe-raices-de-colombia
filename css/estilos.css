@@ -319,6 +319,10 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .pie .pendiente { color: var(--pendiente-texto); }
 .redes { display: flex; gap: 10px; flex-wrap: wrap; }
 .redes a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 1px solid rgba(250, 241, 228, .35); border-radius: 999px; text-decoration: none; }
+.redes a.red-icono { padding: 0; border: 0; border-radius: 9px; width: 40px; height: 40px; transition: transform .15s ease; }
+.redes a.red-icono svg { width: 40px; height: 40px; display: block; }
+.redes a.red-icono:hover, .redes a.red-icono:focus-visible { transform: translateY(-2px); }
+.redes a.red-icono:focus-visible { outline: 2px solid var(--kraft); outline-offset: 3px; }
 
 /* ---------- 11. Chat y WhatsApp flotantes ---------- */
 /* WhatsApp abajo a la derecha; el botón del chat va ENCIMA, para no taparse. */

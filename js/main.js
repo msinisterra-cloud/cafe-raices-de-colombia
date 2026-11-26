@@ -55,12 +55,11 @@ const VENDEDOR = {
   recogida: "Puedes recoger tu pedido en la planta, en horario de atención, coordinándolo antes por WhatsApp."
 };
 
-// Redes sociales (Entrega 2, tabla 10.3). Reemplazar "#" por la URL real.
+// Redes sociales oficiales (enlaces entregados el 25-11-2026).
 const REDES = [
-  { nombre: "Facebook", url: "#", pendiente: true },
-  { nombre: "Instagram", url: "#", pendiente: true },
-  { nombre: "YouTube", url: "#", pendiente: true },
-  { nombre: "TikTok", url: "#", pendiente: true }
+  { nombre: "Facebook", url: "https://www.facebook.com/share/19RzBGE2rq/" },
+  { nombre: "Instagram", url: "https://www.instagram.com/cafe_raices_de_colombia/" },
+  { nombre: "YouTube", url: "https://www.youtube.com/@caferaicesdecolombia" }
 ];
 
 const ESLOGAN = "De nuestras raíces a tu taza";

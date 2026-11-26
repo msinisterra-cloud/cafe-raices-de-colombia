@@ -153,3 +153,6 @@ Para encontrar todos los pendientes, busca `POR CONFIRMAR` en la carpeta. En pan
 - Envío por departamento en el checkout: Cauca $8.000, Valle $10.000, resto $14.000, gratis desde $150.000; recoger en planta sin costo.
 - BIENVENIDA10 (1 por cliente, 30 días, no acumulable), IVA incluido (por validar con contador), devoluciones en 48 h, retracto según art. 47 Ley 1480, garantía, vida útil (6 meses cerrado; 4–6 semanas abierto). Políticas actualizadas al 25-11-2026.
 - Siguen pendientes: correo de la tienda, enlaces de redes y YouTube, fotos reales, nombres de las familias aliadas.
+
+### 25-11-2026 · Redes sociales
+- Enlaces oficiales de Facebook, Instagram (@cafe_raices_de_colombia) y YouTube (@caferaicesdecolombia) en el pie de página, Ayuda y Preparar; QR de Instagram en Ayuda. TikTok se retiró del pie hasta que exista la cuenta.

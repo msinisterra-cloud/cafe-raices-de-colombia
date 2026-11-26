@@ -41,6 +41,18 @@ const YOUTUBE_VIDEO_RECETA_ID = "[POR CONFIRMAR]";
 const VIDEO_PUBLICITARIO_LOCAL = { archivo: "video/video-publicitario.mp4", portada: "img/poster-video.jpg" };
 const VIDEO_RECETA_LOCAL = { archivo: "video/video-receta.mp4", portada: "img/poster-receta.jpg" };
 
+// Pasarela de pagos Wompi — SOLO MODO DE PRUEBAS (Sandbox): no se cobra dinero real.
+// La llave pública es pública por diseño. El secreto de integridad de PRUEBAS queda aquí
+// porque GitHub Pages no tiene servidor; Wompi recomienda calcular la firma en un servidor.
+// ANTES DE COBRAR DE VERDAD: mover la firma a un servidor (o función serverless),
+// regenerar este secreto en el panel de Wompi y nunca poner aquí llaves o secretos "prod_".
+const WOMPI = {
+  activo: true,
+  modo: "pruebas",
+  llavePublica: "pub_test_i7bD3wait3oUijuEUasyiG37gMqoyo3c",
+  secretoIntegridadPruebas: "test_integrity_vaPGsf94pZZoeETAays8A6rekDfBDHKy"
+};
+
 // Información del vendedor exigida por el art. 50 de la Ley 1480 de 2011.
 // Datos de referencia para el proyecto académico: la razón social, el NIT y la
 // dirección NO son reales. Reemplazarlos cuando la empresa se formalice.
@@ -1198,6 +1210,12 @@ const ESLOGAN = "De nuestras raíces a tu taza";
     }
 
     function pasoConfirmacion(lineas) {
+      if (datos.confirmado === "wompi") {
+        return `<section class="tarjeta"><h2>¡Pago aprobado!</h2>
+          <p>Recibimos tu pago con Wompi <span class="pendiente">(modo de pruebas, sin dinero real)</span>. Transacción: <strong>${esc(datos.transaccion || "")}</strong>.</p>
+          <p>Te escribiremos por WhatsApp y correo con el número de guía. Puedes ver tu pedido en <a href="cuenta.html">Mi cuenta</a>.</p>
+          <div class="grupo-botones"><a class="boton boton-primario" href="index.html">Volver al inicio</a><a class="boton boton-secundario" href="club.html">Conocer el Club Raíces</a></div></section>`;
+      }
       if (datos.confirmado) {
         return `<section class="tarjeta"><h2>¡Pedido enviado!</h2>
           <p>Abrimos WhatsApp con tu pedido. Cuando lo envíes, te confirmamos el total con envío y los datos de pago.</p>
@@ -1214,10 +1232,80 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         <p>${esc(medio ? medio.nombre : "")}</p>
         <div class="info-vendedor" style="margin-bottom:16px"><p><strong>Vendedor</strong> (Ley 1480 de 2011, art. 50)</p>${htmlVendedor()}</div>
         <p class="pequeno suave">${NUMERO_WHATSAPP_LISTO ? "Al confirmar se abre WhatsApp con tu pedido ya escrito." : "Al confirmar se abre nuestro chat de WhatsApp y tu pedido queda copiado: solo pégalo en el chat y envíalo."} Tienes derecho de retracto dentro de los 5 días hábiles siguientes a la entrega.</p>
+        ${puedePagarEnLinea() ? `<div class="info-vendedor" style="margin-bottom:16px" id="bloque-wompi">
+          <p><strong>Pago en línea con Wompi</strong> · <span class="pendiente">MODO DE PRUEBAS: no se cobra dinero real</span></p>
+          <p class="pequeno">Para probar: tarjeta <strong>4242 4242 4242 4242</strong> (aprobada) o <strong>4111 1111 1111 1111</strong> (rechazada), con cualquier fecha futura y cualquier CVC; Nequi <strong>3991111111</strong> (aprobado).</p>
+          <button class="boton boton-primario" type="button" id="pagar-wompi">Pagar ${precio(Carrito.totales(datos).total)} con Wompi</button>
+          <p class="pequeno suave" id="estado-wompi" role="status" style="margin:8px 0 0"></p>
+        </div>` : ""}
         <div class="grupo-botones">
-          <a class="boton boton-whatsapp" id="confirmar-pedido" href="${enlaceWhatsApp(mensajePedido(lineas))}" target="_blank" rel="noopener">Confirmar pedido por WhatsApp</a>
+          <a class="boton ${puedePagarEnLinea() ? "boton-secundario" : "boton-whatsapp"}" id="confirmar-pedido" href="${enlaceWhatsApp(mensajePedido(lineas))}" target="_blank" rel="noopener">${puedePagarEnLinea() ? "Prefiero confirmar por WhatsApp" : "Confirmar pedido por WhatsApp"}</a>
           <button class="boton boton-secundario" type="button" data-ir="3">Volver</button>
         </div></section>`;
+    }
+
+    // Wompi: solo para medios en línea y cuando el total ya incluye el envío.
+    function puedePagarEnLinea() {
+      const t = Carrito.totales(datos);
+      return WOMPI.activo && typeof window.WidgetCheckout === "function" && datos.pago && datos.pago !== "contraentrega" && t.envio !== null && t.total > 0;
+    }
+
+    async function firmaIntegridad(referencia, centavos) {
+      const texto = `${referencia}${centavos}COP${WOMPI.secretoIntegridadPruebas}`;
+      const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(texto));
+      return Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function guardarPedido(extra) {
+      const t = Carrito.totales(datos);
+      const pedidos = almacen.leer("pedidos", []);
+      pedidos.push(Object.assign({
+        numero: "CR-" + Date.now().toString().slice(-6),
+        fecha: new Date().toISOString(),
+        lineas: Carrito.leer(),
+        total: t.total,
+        envioPendiente: t.envio === null,
+        ciudad: datos.ciudad,
+        pago: datos.pago
+      }, extra || {}));
+      almacen.guardar("pedidos", pedidos);
+      if (t.codigo) almacen.borrar("cupon");
+      Carrito.vaciar();
+    }
+
+    async function pagarConWompi() {
+      const boton = $("#pagar-wompi"), estado = $("#estado-wompi");
+      const t = Carrito.totales(datos);
+      const centavos = Math.round(t.total * 100);
+      const referencia = "CR-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+      boton.disabled = true;
+      estado.textContent = "Abriendo el pago seguro de Wompi…";
+      try {
+        const checkout = new window.WidgetCheckout({
+          currency: "COP",
+          amountInCents: centavos,
+          reference: referencia,
+          publicKey: WOMPI.llavePublica,
+          signature: { integrity: await firmaIntegridad(referencia, centavos) },
+          customerData: { email: datos.correo, fullName: datos.nombre, phoneNumber: datos.celular, phoneNumberPrefix: "+57" }
+        });
+        estado.textContent = "";
+        checkout.open((resultado) => {
+          const tx = resultado && resultado.transaction;
+          if (tx && tx.status === "APPROVED") {
+            guardarPedido({ pagado: true, pasarela: "Wompi (pruebas)", transaccion: tx.id, referencia });
+            datos.confirmado = "wompi";
+            datos.transaccion = tx.id;
+            pintar();
+          } else {
+            boton.disabled = false;
+            estado.textContent = tx ? `El pago quedó en estado ${tx.status}. Puedes intentarlo de nuevo o confirmar por WhatsApp.` : "Cerraste el pago. Puedes intentarlo de nuevo.";
+          }
+        });
+      } catch (e) {
+        boton.disabled = false;
+        estado.textContent = "No pudimos abrir Wompi. Intenta de nuevo o confirma tu pedido por WhatsApp.";
+      }
     }
 
     function irA(n) {
@@ -1275,22 +1363,11 @@ const ESLOGAN = "De nuestras raíces a tu taza";
         });
       }
       // Paso 5: al confirmar se guarda el pedido (para Mi cuenta) y se vacía el carrito
+      const pw = $("#pagar-wompi", raiz);
+      if (pw) pw.addEventListener("click", pagarConWompi);
       const conf = $("#confirmar-pedido", raiz);
       if (conf) conf.addEventListener("click", () => {
-        const t = Carrito.totales(datos);
-        const pedidos = almacen.leer("pedidos", []);
-        pedidos.push({
-          numero: "CR-" + Date.now().toString().slice(-6),
-          fecha: new Date().toISOString(),
-          lineas: Carrito.leer(),
-          total: t.total,
-          envioPendiente: t.envio === null,
-          ciudad: datos.ciudad,
-          pago: datos.pago
-        });
-        almacen.guardar("pedidos", pedidos);
-        if (t.codigo) almacen.borrar("cupon");
-        Carrito.vaciar();
+        guardarPedido();
         datos.confirmado = true;
         setTimeout(pintar, 300); // deja que se abra WhatsApp primero
       });

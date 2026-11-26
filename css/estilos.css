@@ -404,7 +404,8 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .item-carrito .controles { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
 .enlace-boton { background: none; border: 0; padding: 4px; color: var(--terracota); text-decoration: underline; cursor: pointer; font: inherit; font-size: .9rem; }
 .resumen { position: relative; }
-.resumen dl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; margin: 0 0 12px; }
+.resumen dl { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 8px 16px; margin: 0 0 12px; }
+.resumen dt { overflow-wrap: normal; }
 .resumen dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
 .resumen .total { font-weight: 700; font-size: 1.15rem; border-top: 2px solid var(--linea); padding-top: 10px; }
 .medio-pago { display: flex; gap: 12px; align-items: flex-start; border: 1.5px solid var(--linea); border-radius: var(--radio-sm); padding: 12px 14px; background: #fff; cursor: pointer; }

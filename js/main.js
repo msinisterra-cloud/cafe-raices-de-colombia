@@ -1214,10 +1214,10 @@ const ESLOGAN = "De nuestras raíces a tu taza";
           <dl>
             <dt>Subtotal (${Carrito.unidades()} ${Carrito.unidades() === 1 ? "producto" : "productos"})</dt><dd>${precio(t.subtotal)}</dd>
             ${t.codigo ? `<dt>Descuento ${esc(t.codigo)}</dt><dd>−${precio(t.descuento)}</dd>` : ""}
-            <dt>Envío</dt><dd>${t.envio === null ? "Se calcula en el paso 3 según tu destino" : t.envio === 0 ? (datos.entrega === "recoger" ? "No aplica (recoges en la planta)" : "Gratis") : precio(t.envio)}</dd>
-            <dt>Impuestos</dt><dd>${marcar(CATALOGO.impuestos.texto)}</dd>
+            <dt>Envío</dt><dd>${t.envio === null ? "En el paso 3" : t.envio === 0 ? (datos.entrega === "recoger" ? "No aplica (recoges en la planta)" : "Gratis") : precio(t.envio)}</dd>
             <dt class="total">Total${t.envio === null ? " (sin envío)" : ""}</dt><dd class="total">${precio(t.total)}</dd>
           </dl>
+          <p class="pequeno suave" style="margin:0 0 6px">${t.envio === null ? "El envío se calcula en el paso 3 según tu destino. " : ""}Impuestos: ${marcar(CATALOGO.impuestos.texto)}.</p>
           <p class="pequeno suave" style="margin:0">Precios en pesos colombianos (COP). Verás el total final antes de confirmar.</p>
         </aside>`;
     }
